@@ -23,13 +23,17 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef YSS_DEBUG__H_
-#define YSS_DEBUG__H_
+#ifndef YSS_STRING__H_
+#define YSS_STRING__H_
 
-#if defined(__SEGGER_LINKER)
-#include <stdint.h>
-int32_t  debug_printf(const char *fmt,...);
-#else
-#include <__cross_studio_io.h>
-#endif
+#include <string.h>
+
+extern "C"
+{
+//	void *memcpy(void *__s1, const void *__s2, uint32_t __n);
+//	void *memset(void *__s, int32_t  __c, uint32_t __n);
+	void *memsethw(void *__s, int32_t  __c, uint32_t __n);
+	void *memsetw(void *__s, int32_t  __c, uint32_t __n);
+}
+
 #endif

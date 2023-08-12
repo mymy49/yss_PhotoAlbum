@@ -31,7 +31,7 @@ int main(void)
 
 	while(1)
 	{
-		debug_printf("%d\r", (uint32_t)runtime::getMsec());
+//		debug_printf("%d\r", (uint32_t)runtime::getMsec());
 		thread::yield();
 	}
 }
