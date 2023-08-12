@@ -22,16 +22,18 @@
 */
 
 #include <yss.h>
-#include <yss/debug.h>
-#include <util/runtime.h>
+#include <bsp.h>
 
 int main(void)
 {
+	// 운영체체 초기화
 	initializeYss();
+	
+	// 보드 초기화
+	initializeBoard();
 
 	while(1)
 	{
-//		debug_printf("%d\r", (uint32_t)runtime::getMsec());
 		thread::yield();
 	}
 }

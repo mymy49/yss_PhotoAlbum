@@ -21,3 +21,10 @@
 	WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#ifndef BSP__H_
+#define BSP__H_
+
+void initializeBoard(void);
+
+#endif
+
