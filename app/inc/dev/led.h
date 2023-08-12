@@ -21,7 +21,13 @@
 
 namespace Led
 {
+	// LED를 초기화 한다.
 	void initialize(void);
+
+	// LED를 ON/OFF 한다.
+	//
+	// bool en
+	//		LED의 상태를 설정한다. (true - 켜기, false - 끄기)
 	void on(bool en);
 }
 
