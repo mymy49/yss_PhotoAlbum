@@ -1368,6 +1368,34 @@ namespace define
 			};
 		}
 	}
+
+	namespace usart
+	{
+		namespace stopBit
+		{
+			enum
+			{
+				BIT_1 = 0,
+				BIT_0_5,
+				BIT_2,
+				BIT_1_5,
+			};
+		}
+	}
+
+	namespace uart
+	{
+		namespace stopBit
+		{
+			enum
+			{
+				BIT_1 = 0,
+				BIT_0_5,
+				BIT_2,
+				BIT_1_5,
+			};
+		}
+	}
 }
 
 #endif

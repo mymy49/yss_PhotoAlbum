@@ -512,9 +512,7 @@ namespace define
 			enum
 			{
 				BIT_1 = 0,
-				BIT_0_5,
 				BIT_2,
-				BIT_1_5,
 			};
 		}
 	}

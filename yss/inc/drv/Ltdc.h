@@ -34,7 +34,7 @@
 #include <targets/st_gigadevice/define_ltdc_stm32_gd32f4_f7.h>
 typedef volatile uint32_t	YSS_LTDC_Peri;
 
-#elif defined(LTDC) && defined(STM32F7_N) || defined(STM32F4_N) 
+#elif defined(LTDC) && (defined(STM32F7_N) || defined(STM32F4_N))
 
 #else
 
