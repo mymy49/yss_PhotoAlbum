@@ -24,6 +24,18 @@
 #include <yss.h>
 #include <bsp.h>
 
+void thread_blinkLed(void)
+{
+	while(1)
+	{
+		Led::setOn(true);
+		thread::delay(250);
+
+		Led::setOn(false);
+		thread::delay(250);
+	}
+}
+
 int main(void)
 {
 	// 운영체체 초기화
@@ -31,6 +43,8 @@ int main(void)
 	
 	// 보드 초기화
 	initializeBoard();
+
+	thread::add(thread_blinkLed, 512);
 
 	while(1)
 	{
