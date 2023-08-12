@@ -62,10 +62,11 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="18" y="34" useTextEdit="1" path="app/src/main.cpp" left="0" selected="1" top="15" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="23" y="94" useTextEdit="1" path="../../../../.rowley_associates_limited/CrossWorks for ARM/v4/packages/targets/STM32/STM32_Startup.s" left="0" top="83" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="64" y="12" useTextEdit="1" path="app/src/main.cpp" left="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="24" y="57" useTextEdit="1" path="../../../../.rowley_associates_limited/CrossWorks for ARM/v4/packages/targets/STM32/STM32_Startup.s" left="0" selected="1" top="39" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="84" useTextEdit="1" path="app/src/sysmem.c" left="0" top="39" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" path="app/Startup/startup_stm32f446retx.s" left="0" top="15" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="18" y="101" useTextEdit="1" path="app/Startup/startup_stm32f446retx.s" left="0" top="33" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="30" y="200" useTextEdit="1" path="/usr/share/crossworks_for_arm_4.10/source/thumb_crt0.s" left="0" top="99" codecName="Default"/>
  </Files>
  <ARMCrossStudioWindow activeProject="Photo Album" fileDialogDefaultFilter="*.c" autoConnectTarget="SEGGER J-Link" buildConfiguration="THUMB Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>

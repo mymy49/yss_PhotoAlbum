@@ -41,6 +41,10 @@ defined in linker script */
 .word _sbss
 /* end address for the .bss section. defined in linker script */
 .word _ebss
+/* start address for the .psp. defined in linker script */
+.word _spsp
+/* end address for the .psp. defined in linker script */
+.word _epsp
 
 /**
  * @brief  This is the code that gets called when the processor first
@@ -90,6 +94,12 @@ FillZerobss:
 LoopFillZerobss:
   cmp r2, r4
   bcc FillZerobss
+
+/* PSP Setup */
+  ldr r0, = _epsp
+  msr psp, r0
+  movs r2, #2
+  msr control, r2
 
 /* Call static constructors */
   bl __libc_init_array
