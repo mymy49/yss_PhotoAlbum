@@ -1,0 +1,51 @@
+<!DOCTYPE CrossStudio_Session_File>
+<session>
+ <Bookmarks/>
+ <Breakpoints groups="Breakpoints" active_group="Breakpoints"/>
+ <ExecutionProfileWindow/>
+ <FrameBuffer/>
+ <Memory1/>
+ <Memory2/>
+ <Memory3/>
+ <Memory4/>
+ <Project>
+  <ProjectSessionItem path="Photo Album"/>
+  <ProjectSessionItem path="Photo Album;Photo Album"/>
+  <ProjectSessionItem path="Photo Album;Photo Album;Source Files"/>
+  <ProjectSessionItem path="Photo Album;Photo Album;Source Files;app"/>
+  <ProjectSessionItem path="Photo Album;Photo Album;Source Files;yss"/>
+  <ProjectSessionItem path="Photo Album;Photo Album;Source Files;yss;inc"/>
+  <ProjectSessionItem path="Photo Album;Photo Album;Source Files;yss;inc;drv"/>
+  <ProjectSessionItem path="Photo Album;Photo Album;Source Files;yss;src"/>
+  <ProjectSessionItem path="Photo Album;Photo Album;Source Files;yss;src;mod"/>
+  <ProjectSessionItem path="Photo Album;Photo Album;Source Files;yss;src;mod;ctouch"/>
+ </Project>
+ <Register1/>
+ <Register2/>
+ <Register3/>
+ <Register4/>
+ <TargetWindow programLoadAddress="" programSize="" programMemoryInterface="" programFileName="" programFileType="" programAction=""/>
+ <Threads>
+  <ThreadsWindow showLists=""/>
+ </Threads>
+ <TraceWindow>
+  <Trace enabled="Yes"/>
+ </TraceWindow>
+ <Watch1>
+  <Watches active="1" update="Never"/>
+ </Watch1>
+ <Watch2>
+  <Watches active="0" update="Never"/>
+ </Watch2>
+ <Watch3>
+  <Watches active="0" update="Never"/>
+ </Watch3>
+ <Watch4>
+  <Watches active="0" update="Never"/>
+ </Watch4>
+ <Files>
+  <SessionOpenFile windowGroup="DockEditLeft" x="24" y="43" useTextEdit="1" path="yss/inc/drv/Dma2d.h" left="0" selected="1" top="9" codecName="UTF-8"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="21" y="52" useTextEdit="1" path="yss/src/mod/ctouch/mod_FT5336.cpp" left="0" top="12" codecName="UTF-8"/>
+ </Files>
+ <ARMCrossStudioWindow activeProject="Photo Album" fileDialogDefaultFilter="*.c" autoConnectTarget="" buildConfiguration="THUMB Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="0"/>
+</session>
