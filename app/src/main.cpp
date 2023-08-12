@@ -28,10 +28,10 @@ void thread_blinkLed(void)
 {
 	while(1)
 	{
-		Led::setOn(true);
+		Led::on(true);
 		thread::delay(250);
 
-		Led::setOn(false);
+		Led::on(false);
 		thread::delay(250);
 	}
 }
