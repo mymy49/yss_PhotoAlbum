@@ -25,10 +25,10 @@ namespace Led
 	void init(void)
 	{
 		gpioA.setAsOutput(5);
-		setOn(false);
+		on(false);
 	}
 
-	void setOn(bool en)
+	void on(bool en)
 	{
 		gpioA.setOutput(5, en);
 	}
