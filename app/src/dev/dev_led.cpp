@@ -22,7 +22,7 @@
 
 namespace Led
 {
-	void init(void)
+	void initialize(void)
 	{
 		gpioA.setAsOutput(5);
 		on(false);

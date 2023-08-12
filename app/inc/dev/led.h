@@ -21,7 +21,7 @@
 
 namespace Led
 {
-	void init(void);
+	void initialize(void);
 	void on(bool en);
 }
 
