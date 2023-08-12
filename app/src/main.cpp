@@ -28,10 +28,14 @@ void thread_blinkLed(void)
 {
 	while(1)
 	{
+		// LED 켜기
 		Led::on(true);
+		// 250 ms 딜레이
 		thread::delay(250);
 
+		// LED 끄기
 		Led::on(false);
+		// 250 ms 딜레이
 		thread::delay(250);
 	}
 }
@@ -44,6 +48,8 @@ int main(void)
 	// 보드 초기화
 	initializeBoard();
 
+	// thread_blinkLed() 함수를 등록한다.
+	// 등록과 동시에 활성화 된다.
 	thread::add(thread_blinkLed, 512);
 
 	while(1)
