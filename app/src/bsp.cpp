@@ -22,10 +22,21 @@
 */
 
 #include <bsp.h>
+#include <yss.h>
 
 void initializeBoard(void)
 {
+	using namespace define::gpio;
+
 	// LED 초기화
 	Led::initialize();
+
+	// USART2 초기화
+	gpioA.setAsAltFunc(2, altfunc::PA2_USART2_TX);
+	gpioA.setAsAltFunc(3, altfunc::PA3_USART2_RX);
+	
+	usart2.enableClock();
+	usart2.initialize(9600, 256);
+	usart2.enableInterrupt();
 }
 

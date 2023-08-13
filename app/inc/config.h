@@ -122,10 +122,12 @@
 #define TIM14_ENABLE		false
 
 // UART 활성화
-#define UART1_ENABLE		false
-#define UART2_ENABLE		false
-#define UART3_ENABLE		false
+#define USART1_ENABLE		false
+#define USART2_ENABLE		true
+#define USART3_ENABLE		false
 #define UART4_ENABLE		false
+#define UART5_ENABLE		false
+#define USART6_ENABLE		false
 
 #endif
 
