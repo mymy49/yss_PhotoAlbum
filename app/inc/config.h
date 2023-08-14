@@ -106,7 +106,7 @@
 #define SPI4_ENABLE			false
 
 // TIMER 활성화
-#define TIM1_ENABLE			false
+#define TIM1_ENABLE			true
 #define TIM2_ENABLE			false
 #define TIM3_ENABLE			false
 #define TIM4_ENABLE			false
