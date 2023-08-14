@@ -53,6 +53,10 @@ void thread_handleRxMethod(void)
 			// 수신된 데이터의 처리된 양만큼 버퍼를 비워준다.
 			usart2.releaseRxBuffer(count);
 		}
+		
+		// 특별히 이 곳에서 오래 머무를 필요가 없다면 처리 효율을 높이기 위해
+		// thread::yield() 함수를 호출해서 다른 쓰레드에 CPU 점유를 양보한다.
+		thread::yield();
 	}
 }
 
