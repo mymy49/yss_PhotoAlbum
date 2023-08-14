@@ -35,6 +35,8 @@ void thread_handleRxMethod(void)
 	while(1)
 	{
 		// RX 수신 카운트를 얻는다.
+		// 수신 처리를 한 곳에서 하기 때문에 lock(), unlock()이 필요 없다.
+		// 기본적으로 수신은 한 곳에서만 처리하도록 한다.
 		count = usart2.getRxCount();
 
 		if(count)
@@ -46,9 +48,9 @@ void thread_handleRxMethod(void)
 			for(uint32_t i=0;i<count;i++)
 			{	// 수신된 카운터 만큼 루프를 돈다.
 				str[1] = *data++;
-				usart2.lock();		// USART2를 다른 쓰레드에서도 접근하기 때문에 lock()으로 막는다.
+				usart2.lock();		// USART2 송신을 다른 쓰레드에서도 접근하기 때문에 lock()으로 막는다.
 				usart2.send(str, 4);
-				usart2.unlock();	// USART2를 다른 쓰레드에서도 접근이 가능하도록 unlock()으로 풀어준다.
+				usart2.unlock();	// USART2 송신을 다른 쓰레드에서도 접근이 가능하도록 unlock()으로 풀어준다.
 			}
 			// 수신된 데이터의 처리된 양만큼 버퍼를 비워준다.
 			usart2.releaseRxBuffer(count);
@@ -78,9 +80,9 @@ int main(void)
 		sprintf(str, "%d\r", (uint32_t)runtime::getMsec());	// 현재 동작시간을 ms 단위로 얻어서 str에 출력한다.
 		len = strlen(str);
 		
-		usart2.lock();		// USART2를 다른 쓰레드에서도 접근하기 때문에 lock()으로 막는다.
+		usart2.lock();		// USART2 송신을 다른 쓰레드에서도 접근하기 때문에 lock()으로 막는다.
 		usart2.send(str, len);
-		usart2.unlock();	// USART2를 다른 쓰레드에서도 접근이 가능하도록 unlock()으로 풀어준다.
+		usart2.unlock();	// USART2 송신을 다른 쓰레드에서도 접근이 가능하도록 unlock()으로 풀어준다.
 	}
 }
 
