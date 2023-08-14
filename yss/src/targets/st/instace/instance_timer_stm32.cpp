@@ -134,7 +134,7 @@ void TIM1_UP_IRQHandler(void)
 		timer1.isrUpdate();
 	}
 
-#if defined(TIM10_ENABLE) && defined(TIM10)
+#if TIM10_ENABLE && defined(TIM10)
 #define TIMER10_ISR_DEFINED
 	if (TIM10->DIER & TIM_DIER_UIE_Msk && TIM10->SR & TIM_SR_UIF_Msk)
 	{
@@ -538,7 +538,7 @@ void TIMER8_UP_TIMER13_IRQHandler(void)
 		timer8.isrUpdate();
 	}
 
-#if defined(TIM13_ENABLE) && defined(TIMER13)
+#if TIM13_ENABLE && defined(TIMER13)
 #define TIMER13_ISR_DEFINED
 	if (TIMER13->DIE & TIM_DIER_UIE_Msk && TIMER13->STR & TIM_SR_UIF_Msk)
 	{
