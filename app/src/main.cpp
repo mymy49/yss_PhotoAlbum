@@ -41,10 +41,10 @@ void trigger_blinkLed(void)
 {
 	for(uint32_t i=0;i<5;i++)
 	{
-		Led::on(true);
+		Led::on(true, 80);
 		thread::delay(100);
 
-		Led::on(false);
+		Led::on(false, 80);
 		thread::delay(100);
 	}
 }
