@@ -25,7 +25,7 @@
 
 #include <drv/peripheral.h>
 
-#if defined(GD32F1) || defined(STM32F1_N) || defined (STM32F7_N)
+#if defined(GD32F1) || defined(STM32F1_N) || defined (STM32F7_N) || defined(STM32F4_N)	
 
 #include <drv/Pwm.h>
 #include <yss/reg.h>
@@ -35,6 +35,8 @@
 #include <targets/st/bitfield_stm32f767xx.h>
 #elif defined(STM32F746xx)
 #include <targets/st/bitfield_stm32f746xx.h>
+#elif defined(STM32F446xx)
+#include <targets/st/bitfield_stm32f446xx.h>
 #endif
 
 Pwm::Pwm(YSS_PWM_Peri *peri, const Drv::Setup drvSetup) : Drv(drvSetup)
@@ -112,6 +114,10 @@ uint32_t PwmCh1::getTopValue(void)
 
 void PwmCh1::setRatio(float ratio)
 {
+	if(ratio >= 1.0f)
+		ratio = 1.0f;
+	else if(ratio < 0.f)
+		ratio = 0.f;
 	mPeri->CCR1 = (uint16_t)((float)mPeri->ARR * ratio);
 }
 

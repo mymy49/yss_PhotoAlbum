@@ -65,8 +65,6 @@ public:
 
 	void setUpdateIsr(void (*isr)(void));
 
-	void enableUpdateInterrupt(bool en = true);
-
 	void setOnePulse(bool en);
 
 	void start(void);
