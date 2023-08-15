@@ -21,7 +21,7 @@
 #include <bsp.h>
 #include <util/Period.h>
 
-#define FADE_STEP		(50)
+#define FADE_STEP		(15)
 
 namespace Led
 {
