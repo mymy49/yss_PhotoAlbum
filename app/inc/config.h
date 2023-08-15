@@ -67,7 +67,7 @@
 #define CAN2_ENABLE			false
 
 // DAC 활성화
-#define DAC1_ENABLE			false
+#define DAC1_ENABLE			true
 
 // I2C 활성화
 #define I2C1_ENABLE			false

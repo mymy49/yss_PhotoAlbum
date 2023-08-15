@@ -32,9 +32,21 @@ int main(void)
 	// 보드 초기화
 	initializeBoard();
 
+	// DAC 초기화
+	gpioA.setAsAnalog(4);
+	
+	dac1.enableClock();
+	dac1.initialize();
+	dac1.enableChannel1();
+	dac1.enableInterrupt();
+
 	while(1)
 	{
-		thread::yield();
+		for(uint32_t i=0;i<4096;i++)
+		{	// 1ms마다 DAC 값을 1씩 증가해서 출력
+			dac1.setOutputChannel1(i);
+			thread::delayUs(50);
+		}
 	}
 }
 
