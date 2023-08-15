@@ -193,7 +193,7 @@ threadId add(void (*func)(void *), void *var, int32_t  stackSize, void *r8, void
 	sp = (uint32_t *)((uint32_t )gYssThreadList[i].malloc & ~0x7) - 1;
 	sp += stackSize;
 	*sp-- = 0x61000000;									// xPSR
-	*sp-- = (uint32_t )func;								// PC
+	*sp-- = (uint32_t )func;							// PC
 	*sp-- = (uint32_t )(void (*)(void))terminateThread;	// LR
 	sp -= 4;
 	*sp-- = (uint32_t )var;								// R0
