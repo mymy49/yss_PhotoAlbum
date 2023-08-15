@@ -643,9 +643,17 @@ extern "C"
 		asm("mov r0, %0" : : "r" (sp));
 #if defined(YSS__CORE_CM3_CM4_CM7_H_GENERIC) || defined(YSS__CORE_CM33_H_GENERIC)
 #if (!defined(__NO_FPU) || defined(__FPU_PRESENT)) && !defined(__SOFTFP__) || ((__FPU_PRESENT == 1) && (__FPU_USED == 1))
+		// SYSTICK의 카운터를 초기화
+		// SYSTICK이 문맥 전환 시작전에 한번 오버플로우가 났기 때문에
+		// 중간에 인터럽트 등이 발생해 카운터가 감소했을 수 있으므로 초기화를 진행함
+		asm("ldr r3, =0xe000e010");
+		asm("movs r1, #0");
+		asm("str r1, [r3, #8]");
+
 		// FPU 관련 레지스터 복원
 		asm("ldm  r0!, {r3-r11}");
 		asm("vldm r0!,{s16-s31}");
+		asm("mov lr, r3");
 #else
 		// SYSTICK의 카운터를 초기화
 		// SYSTICK이 문맥 전환 시작전에 한번 오버플로우가 났기 때문에
