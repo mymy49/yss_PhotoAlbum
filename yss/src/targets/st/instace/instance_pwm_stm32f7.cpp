@@ -25,7 +25,7 @@
 
 #include <drv/mcu.h>
 
-#if defined(STM32F7_N) || defined(STM32F1_N)
+#if defined(STM32F7_N) || defined(STM32F1_N) || defined(STM32F4_N)
 
 #include <config.h>
 #include <yss/instance.h>
@@ -35,6 +35,8 @@
 #include <targets/st/bitfield_stm32f746xx.h>
 #elif defined(STM32F103xB)
 #include <targets/st/bitfield_stm32f103xx.h>
+#elif defined(STM32F446xx)
+#include <targets/st/bitfield_stm32f446xx.h>
 #endif
 
 uint32_t getApb1TimerClockFrequency(void);
