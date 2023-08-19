@@ -47,11 +47,11 @@
 
 // ####################### GUI 설정 #######################
 // GUI library Enable (true, false)
-#define USE_GUI				true
+#define USE_GUI				false
 
 // ####################### KEY 설정 #######################
 // 최대 KEY 생성 가능 갯수 설정 (0 ~ ), 0일 경우 기능 꺼짐
-#define NUM_OF_YSS_KEY		4
+#define NUM_OF_YSS_KEY		0
 
 // ###################### 주변 장치 활성화 ######################
 // 활성화 시킬 장치에 대해 false -> true로 변경하여 활성화 한다.
@@ -131,4 +131,3 @@
 #define UART5_ENABLE		false
 #define USART6_ENABLE		false
 
-#endif

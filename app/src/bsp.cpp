@@ -38,5 +38,8 @@ void initializeBoard(void)
 	usart2.enableClock();
 	usart2.initialize(9600, 256);
 	usart2.enableInterrupt();
+
+	// Speaker 초기화
+	Speaker::initialize();
 }
 

@@ -21,13 +21,19 @@
 	WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef BSP__H_
-#define BSP__H_
+#ifndef DEV_SPEAKER__H_
+#define DEV_SPEAKER__H_
 
-#include <dev/led.h>
-#include <dev/speaker.h>
+#include <stdint.h>
+#include <yss/error.h>
 
-void initializeBoard(void);
+namespace Speaker
+{
+	// Speaker를 초기화 한다.
+	void initialize(void);
+
+	error play(void *src);
+	error play(const void *src);
+}
 
 #endif
-
