@@ -23,6 +23,7 @@
 
 #include <yss.h>
 #include <bsp.h>
+#include "../wav/alarm.h"
 
 int main(void)
 {
@@ -31,6 +32,8 @@ int main(void)
 	
 	// 보드 초기화
 	initializeBoard();
+
+	Speaker::play(alarm_wav);
 
 	while(1)
 	{
