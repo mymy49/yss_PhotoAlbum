@@ -97,7 +97,7 @@ namespace Speaker
 		else if(dac < 0)
 			dac = 0;
 
-		dac1.setOutputChannel1(dac);
+		gDac->setOutputChannel1(dac);
 	}
 
 	error play(const void *src)
