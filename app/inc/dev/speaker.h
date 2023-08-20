@@ -31,8 +31,14 @@ namespace Speaker
 {
 	// Speaker를 초기화 한다.
 	void initialize(void);
-
-	error play(void *src);
+	
+	// 16 kHz 샘플 / Mono / 16 Bit PCM *.WAV 파일 데이터를 재생한다.
+	// 내장 Flash에 저장된 Bin to Source 프로그램으로 파일이 통으로 포함된 형태의 것으로 한정한다.
+	//
+	// 반환
+	//		에러를 반환한다.
+	// const void *src
+	//		*.WAV의 포인터를 설정한다.
 	error play(const void *src);
 }
 

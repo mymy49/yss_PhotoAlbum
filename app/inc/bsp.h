@@ -27,6 +27,7 @@
 #include <dev/led.h>
 #include <dev/speaker.h>
 
+// 보드의 장치들을 초기화 한다.
 void initializeBoard(void);
 
 #endif
