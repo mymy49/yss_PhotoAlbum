@@ -37,6 +37,8 @@
 #include <targets/st/bitfield_stm32f103xx.h>
 #elif defined(STM32F446xx)
 #include <targets/st/bitfield_stm32f446xx.h>
+#elif defined(STM32F746xx)
+#include <targets/st/bitfield_stm32f746xx.h>
 #endif
 
 Timer::Timer(const Drv::Setup drvSetup, const Setup setup) : Drv(drvSetup)

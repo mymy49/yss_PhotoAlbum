@@ -21,60 +21,69 @@
 
 #include <drv/peripheral.h>
 
+#if defined(RCC)
+extern Clock clock;
+#endif
+
+// EXTI
+#if defined(EXTI)
+extern Exti exti;
+#endif
+
 #if defined(TIM1)
-	extern Timer timer1;
+extern Timer timer1;
 #endif
 
 #if defined(TIM2)
-	extern Timer timer2;
+extern Timer timer2;
 #endif
 
 #if defined(TIM3)
-	extern Timer timer3;
+extern Timer timer3;
 #endif
 
 #if defined(TIM4)
-	extern Timer timer4;
+extern Timer timer4;
 #endif
 
 #if defined(TIM5)
-	extern Timer timer5;
+extern Timer timer5;
 #endif
 
 #if defined(TIM6)
-	extern Timer timer6;
+extern Timer timer6;
 #endif
 
 #if defined(TIM7)
-	extern Timer timer7;
+extern Timer timer7;
 #endif
 
 #if defined(TIM8)
-	extern Timer timer8;
+extern Timer timer8;
 #endif
 
 #if defined(TIM9)
-	extern Timer timer9;
+extern Timer timer9;
 #endif
 
 #if defined(TIM10)
-	extern Timer timer10;
+extern Timer timer10;
 #endif
 
 #if defined(TIM11)
-	extern Timer timer11;
+extern Timer timer11;
 #endif
 
 #if defined(TIM12)
-	extern Timer timer12;
+extern Timer timer12;
 #endif
 
 #if defined(TIM13)
-	extern Timer timer13;
+extern Timer timer13;
 #endif
 
 #if defined(TIM14)
-	extern Timer timer14;
+extern Timer timer14;
 #endif
 
 #if defined(TIM1)
@@ -218,143 +227,143 @@ extern CaptureCh1 capture14Ch1;
 #endif
 
 #if defined(DMA1_Stream0)
-	extern DmaChannel1 dmaChannel1;
+extern DmaChannel1 dmaChannel1;
 #endif
 
 #if defined(DMA1_Stream1)
-	extern DmaChannel2 dmaChannel2;
+extern DmaChannel2 dmaChannel2;
 #endif
 
 #if defined(DMA1_Stream2)
-	extern DmaChannel3 dmaChannel3;
+extern DmaChannel3 dmaChannel3;
 #endif
 
 #if defined(DMA1_Stream3)
-	extern DmaChannel4 dmaChannel4;
+extern DmaChannel4 dmaChannel4;
 #endif
 
 #if defined(DMA1_Stream4)
-	extern DmaChannel5 dmaChannel5;
+extern DmaChannel5 dmaChannel5;
 #endif
 
 #if defined(DMA1_Stream5)
-	extern DmaChannel6 dmaChannel6;
+extern DmaChannel6 dmaChannel6;
 #endif
 
 #if defined(DMA1_Stream6)
-	extern DmaChannel7 dmaChannel7;
+extern DmaChannel7 dmaChannel7;
 #endif
 
 #if defined(DMA1_Stream7)
-	extern DmaChannel8 dmaChannel8;
+extern DmaChannel8 dmaChannel8;
 #endif
 
 #if defined(DMA2_Stream0)
-	extern DmaChannel9 dmaChannel9;
+extern DmaChannel9 dmaChannel9;
 #endif
 
 #if defined(DMA2_Stream1)
-	extern DmaChannel10 dmaChannel10;
+extern DmaChannel10 dmaChannel10;
 #endif
 
 #if defined(DMA2_Stream2)
-	extern DmaChannel11 dmaChannel11;
+extern DmaChannel11 dmaChannel11;
 #endif
 
 #if defined(DMA2_Stream3)
-	extern DmaChannel12 dmaChannel12;
+extern DmaChannel12 dmaChannel12;
 #endif
 
 #if defined(DMA2_Stream4)
-	extern DmaChannel13 dmaChannel13;
+extern DmaChannel13 dmaChannel13;
 #endif
 
 #if defined(DMA2_Stream5)
-	extern DmaChannel14 dmaChannel14;
+extern DmaChannel14 dmaChannel14;
 #endif
 
 #if defined(DMA2_Stream6)
-	extern DmaChannel15 dmaChannel15;
+extern DmaChannel15 dmaChannel15;
 #endif
 
 #if defined(DMA2_Stream7)
-	extern DmaChannel16 dmaChannel16;
+extern DmaChannel16 dmaChannel16;
 #endif
 
 #if defined(GPIOA)
-	extern Gpio gpioA;
+extern Gpio gpioA;
 #endif
 
 #if defined(GPIOB)
-	extern Gpio gpioB;
+extern Gpio gpioB;
 #endif
 
 #if defined(GPIOC)
-	extern Gpio gpioC;
+extern Gpio gpioC;
 #endif
 
 #if defined(GPIOD)
-	extern Gpio gpioD;
+extern Gpio gpioD;
 #endif
 
 #if defined(GPIOE)
-	extern Gpio gpioE;
+extern Gpio gpioE;
 #endif
 
 #if defined(GPIOF)
-	extern Gpio gpioF;
+extern Gpio gpioF;
 #endif
 
 #if defined(GPIOG)
-	extern Gpio gpioG;
+extern Gpio gpioG;
 #endif
 
 #if defined(GPIOH)
-	extern Gpio gpioH;
+extern Gpio gpioH;
 #endif
 
 #if defined(GPIOI)
-	extern Gpio gpioI;
+extern Gpio gpioI;
 #endif
 
 #if defined(GPIOJ)
-	extern Gpio gpioJ;
+extern Gpio gpioJ;
 #endif
 
 #if defined(GPIOK)
-	extern Gpio gpioK;
+extern Gpio gpioK;
 #endif
 
 #if defined(USART1)
-	extern Usart usart1;
+extern Usart usart1;
 #endif
 
 #if defined(USART2)
-	extern Usart usart2;
+extern Usart usart2;
 #endif
 
 #if defined(USART3)
-	extern Usart usart3;
+extern Usart usart3;
 #endif
 
 #if defined(UART4)
-	extern Uart uart4;
+extern Uart uart4;
 #endif
 
 #if defined(UART5)
-	extern Uart uart5;
+extern Uart uart5;
 #endif
 
 #if defined(USART6)
-	extern Usart usart6;
+extern Usart usart6;
 #endif
 
 #if defined(UART7)
-	extern Uart uart7;
+extern Uart uart7;
 #endif
 
 #if defined(UART8)
-	extern Uart uart8;
+extern Uart uart8;
 #endif
 
 #if defined(ADC1)

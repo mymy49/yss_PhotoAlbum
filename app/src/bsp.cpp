@@ -24,6 +24,11 @@
 #include <bsp.h>
 #include <yss.h>
 
+MSP3520 lcd;
+Bmp888Buffer frame(100 * 100);
+
+Pwm *gBlPwm;
+
 void initializeBoard(void)
 {
 	using namespace define::gpio;
@@ -41,5 +46,45 @@ void initializeBoard(void)
 
 	// Speaker 초기화
 	Speaker::initialize();
+
+	// SPI1 초기화
+	gpioB.setAsAltFunc(3, altfunc::PB3_SPI1_SCK, ospeed::HIGH);
+	gpioB.setAsAltFunc(4, altfunc::PB4_SPI1_MISO, ospeed::HIGH);
+	gpioB.setAsAltFunc(5, altfunc::PB5_SPI1_MOSI, ospeed::HIGH);
+
+	spi1.enableClock();
+	spi1.initializeAsMain();
+	spi1.enableInterrupt();
+
+	// LCD 초기화
+	gpioB.setAsAltFunc(0, altfunc::PB0_TIM3_CH3);	// 백라이트
+	gpioB.setAsOutput(6, ospeed::HIGH);				// LCD_CS
+	gpioB.setAsOutput(10, ospeed::HIGH);			// LCD_DC
+	gpioA.setAsOutput(8);							// LCD_RST
+	
+	gBlPwm = &pwm3Ch3;
+	gBlPwm->enableClock();
+	gBlPwm->initialize(10000);
+	gBlPwm->start();
+
+	MSP3520::Config lcdConfig = 
+	{
+		spi1,			//Spi &peri;
+		{&gpioB, 6},	//Gpio::Pin chipSelect;
+		{&gpioB, 10},	//Gpio::Pin dataCommand;
+		{&gpioA, 8}		//Gpio::Pin reset;
+	};
+
+	lcd.setConfig(lcdConfig);
+	lcd.setBmp888Buffer(frame);
+	lcd.initialize();
+	lcd.clear();
+
+	setLcdBackLight(1.);
+}
+
+void setLcdBackLight(float dimming)
+{
+	gBlPwm->setRatio(dimming);
 }
 

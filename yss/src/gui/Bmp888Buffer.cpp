@@ -159,7 +159,7 @@ uint8_t Bmp888Buffer::drawChar(Position pos, uint32_t utf8)
 
 void Bmp888Buffer::fillRect(Position pos, Size size)
 {
-	int16_t sx = pos.x, ex = pos.x + size.width, sy = pos.y, ey = pos.y + size.height;
+	int16_t sx = pos.x, ex = pos.x + size.width - 1, sy = pos.y, ey = pos.y + size.height - 1;
 	uint32_t offset;
 	uint8_t *des = (uint8_t*)mFrameBuffer;
 

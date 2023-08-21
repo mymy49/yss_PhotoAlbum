@@ -45,7 +45,7 @@
 
 // ####################### GUI 설정 #######################
 // GUI library Enable (true, false)
-#define USE_GUI				false
+#define USE_GUI				true
 
 // ####################### KEY 설정 #######################
 // 최대 KEY 생성 가능 갯수 설정 (0 ~ ), 0일 경우 기능 꺼짐
@@ -82,7 +82,7 @@
 // PWM 활성화
 #define PWM1_ENABLE			false
 #define PWM2_ENABLE			true
-#define PWM3_ENABLE			false
+#define PWM3_ENABLE			true
 #define PWM4_ENABLE			false
 #define PWM5_ENABLE			false
 #define PWM6_ENABLE			false
@@ -100,7 +100,7 @@
 #define SAI2_ENABLE			false
 
 // SPI 활성화
-#define SPI1_ENABLE			false
+#define SPI1_ENABLE			true
 #define SPI2_ENABLE			false
 #define SPI3_ENABLE			false
 #define SPI4_ENABLE			false

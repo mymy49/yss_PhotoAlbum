@@ -114,11 +114,13 @@ uint32_t PwmCh1::getTopValue(void)
 
 void PwmCh1::setRatio(float ratio)
 {
-	if(ratio >= 1.0f)
-		ratio = 1.0f;
-	else if(ratio < 0.f)
-		ratio = 0.f;
-	mPeri->CCR1 = (uint16_t)((float)mPeri->ARR * ratio);
+	int32_t arr = mPeri->ARR, ccr = (float)arr * ratio;
+
+	if(ccr >= arr)
+		ccr = arr;
+	else if(ccr < 0)
+		ccr = 0;
+	mPeri->CCR1 = ccr;
 }
 
 void PwmCh1::setCounter(int32_t  counter)

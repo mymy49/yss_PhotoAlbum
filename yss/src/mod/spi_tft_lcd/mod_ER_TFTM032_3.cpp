@@ -38,7 +38,7 @@ static const Spi::Specification gLcdSpec =
 
 ER_TFTM032_3::ER_TFTM032_3(void)
 {
-	setSpecification(gLcdSpec);
+	setSpiSpecification(gLcdSpec);
 }
 
 #endif
