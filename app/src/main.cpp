@@ -34,7 +34,17 @@ int main(void)
 
 	while(1)
 	{
-		thread::yield();
-	}
+		lcd.setBackgroundColor(0xFF, 0x00, 0x00);
+		lcd.clear();
+		thread::delay(333);
+
+		lcd.setBackgroundColor(0x00, 0xFF, 0x00);
+		lcd.clear();
+		thread::delay(333);
+
+		lcd.setBackgroundColor(0x00, 0x00, 0xFF);
+		lcd.clear();
+		thread::delay(333);
+}
 }
 
