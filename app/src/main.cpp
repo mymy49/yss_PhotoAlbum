@@ -45,6 +45,6 @@ int main(void)
 		lcd.setBackgroundColor(0x00, 0x00, 0xFF);
 		lcd.clear();
 		thread::delay(333);
-}
+	}
 }
 

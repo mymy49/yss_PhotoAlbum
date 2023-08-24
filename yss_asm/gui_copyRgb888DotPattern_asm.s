@@ -23,77 +23,73 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef YSS_PERIPHERAL__H_
-#define YSS_PERIPHERAL__H_
-
-#include "mcu.h"
-
-#if defined(STM32F1_N)
-
-#include <targets/st/stm32f1xx.h>
-
-#elif defined(STM32F4_N)
-
-#include <targets/st/stm32f4xx.h>
-
-#elif defined(STM32F7_N)
-
-#include <targets/st/stm32f7xx.h>
-
-#elif defined(GD32F10X_XD)
-
-#include <targets/st/stm32f103xg.h>
-#include <targets/st/define_stm32f103xx.h>
-
-#elif defined(GD32F10X_MD)
-
-#include <targets/st/stm32f103xb.h>
-#include <targets/st/define_stm32f103xx.h>
-
-#elif defined(GD32F4)
-
-#include <targets/st_gigadevice/gd32f4xx.h>
-
-#elif defined(NRF52840_XXAA)
-
-#include <targets/nordic/nrf52840.h>
-
-#elif defined(STM32L1)
-
-#include <targets/st_gigadevice/stm32l1xx.h>
-
-#elif defined(STM32F0)
-
-#include <targets/st_gigadevice/stm32f0xx.h>
-
-#elif defined(STM32F0_N)
-
-#include <targets/st/stm32f0xx.h>
-#include <targets/st/define_stm32f030xx.h>
-
-#elif defined(EFM32PG22) || defined(EFR32BG22)
-
-#include <targets/siliconlabs/em_device.h>
-
-#elif defined(MAX32672)
-
-#include <targets/maxim/max32672/max32672.h>
-#include <targets/maxim/max32672/define_max32672.h>
-
-#else
-
-typedef volatile int IRQn_Type;
-
-#define PendSV_IRQn 0
-#define SysTick_CTRL_CLKSOURCE_Pos 0
-#define SysTick_CTRL_TICKINT_Pos 0
-#define SysTick_CTRL_ENABLE_Pos 0
-
-#define SysTick ((SysTick_Type *)0) // !< SysTick configuration struct
-
-#define NVIC_DisableIRQ
-#define NVIC_EnableIRQ
-
-#endif
-
-#endif
+	.thumb_func
+	.syntax unified
+	.func copyRgb888DotPattern
+	.type copyRgb888DotPattern, %function
+	.global copyRgb888DotPattern
+	.section .text, "ax"
+copyRgb888DotPattern:
+	push {r3-r7}
+	bic r1, #0xff000000
+	mov r5, r1
+	mov r6, #0
+	mov r7, #0
+	lsl r3, r1, #24
+	orr r5, r3
+	lsr r6, r1, #8
+	lsl r3, r1, #16
+	orr r6, r3
+	lsr r7, r1, #16
+	lsl r3, r1, #8
+	orr r7, r3
+repeat:
+	subs r3, r2, #64
+	bge greater
+	mov r3, #64
+	subs r4, r3, r2
+	mov r3, #4
+	udiv r4, r4, r3
+	lsl r4, #1
+	bic r2, #0xFFFFFFFC
+	add pc, pc, r4
+greater:
+	subs r2, #64
+	stmia   R0!,{R5-R7}
+	stmia   R0!,{R5-R7}
+	stmia   R0!,{R5-R7}
+	stmia   R0!,{R5-R7}
+	stmia   R0!,{R5-R7}
+	stmia   R0!,{R5-R7}
+	stmia   R0!,{R5-R7}
+	stmia   R0!,{R5-R7}
+	stmia   R0!,{R5-R7}
+	stmia   R0!,{R5-R7}
+	stmia   R0!,{R5-R7}
+	stmia   R0!,{R5-R7}
+	stmia   R0!,{R5-R7}
+	stmia   R0!,{R5-R7}
+	stmia   R0!,{R5-R7}
+	stmia   R0!,{R5-R7}
+	subs r3, r2, #4
+	bhi repeat
+	movs r2, r2
+	beq finish
+	strb r5, [r0], #1
+	strb r6, [r0], #1
+	strb r7, [r0], #1
+	sub r2, #1
+	movs r2, r2
+	beq finish
+	strb r5, [r0], #1
+	strb r6, [r0], #1
+	strb r7, [r0], #1
+	sub r2, #1
+	movs r2, r2
+	beq finish
+	strb r5, [r0], #1
+	strb r6, [r0], #1
+	strb r7, [r0], #1
+finish:
+	pop {r3-r7}
+	bx lr

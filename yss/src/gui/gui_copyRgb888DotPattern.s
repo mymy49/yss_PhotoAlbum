@@ -23,6 +23,9 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////
 
+#include "../../inc/drv/mcu.h"
+
+#if defined(YSS__CORE_CM3_CM4_CM7_H_GENERIC)
 	.thumb_func
 	.syntax unified
 	.func copyRgb888DotPattern
@@ -93,3 +96,4 @@ greater:
 finish:
 	pop {r3-r7}
 	bx lr
+#endif
