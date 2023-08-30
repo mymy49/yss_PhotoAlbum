@@ -40,6 +40,10 @@ extern Adc adc2;
 extern Adc adc3;
 #endif
 
+#if defined(RCC)
+extern Clock clock;
+#endif
+
 #if defined(DMA1_Channel1)
 extern DmaChannel1 dmaChannel1;
 #endif

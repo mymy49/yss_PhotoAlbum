@@ -27,6 +27,7 @@
 #define YSS_PERIPHERAL__H_
 
 #include "mcu.h"
+#include <stdint.h>
 
 #if defined(STM32F1_N)
 
@@ -69,7 +70,6 @@
 #elif defined(STM32F0_N)
 
 #include <targets/st/stm32f0xx.h>
-#include <targets/st/define_stm32f030xx.h>
 
 #elif defined(EFM32PG22) || defined(EFR32BG22)
 

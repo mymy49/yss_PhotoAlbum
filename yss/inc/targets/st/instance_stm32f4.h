@@ -44,6 +44,10 @@ extern Adc adc3;
 extern Clock clock;
 #endif
 
+#if defined(CRC)
+extern Crc32 crc32;
+#endif
+
 #if defined(DAC1)
 extern Dac dac1;
 #endif

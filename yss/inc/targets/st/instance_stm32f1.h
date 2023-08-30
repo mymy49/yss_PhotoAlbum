@@ -28,6 +28,14 @@
 
 #include <drv/peripheral.h>
 
+#if defined(RCC)
+extern Clock clock;
+#endif
+
+#if defined(EXTI)
+extern Exti exti;
+#endif
+
 #if defined(TIM1)
 	extern Timer timer1;
 #endif

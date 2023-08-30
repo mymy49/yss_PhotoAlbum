@@ -33,7 +33,7 @@
 
 #if defined(STM32F030xC)
 #include <targets/st/bitfield_stm32f030xx.h>
-#elif defined(STM32F1_N)
+#elif defined(STM32F1_N) || defined(GD32F1)
 #include <targets/st/bitfield_stm32f103xx.h>
 #elif defined(STM32F446xx)
 #include <targets/st/bitfield_stm32f446xx.h>

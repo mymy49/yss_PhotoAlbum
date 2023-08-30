@@ -68,6 +68,9 @@
 #define CAN1_ENABLE			false
 #define CAN2_ENABLE			false
 
+// CRC32 활성화
+#define CRC32_ENABLE		false
+
 // DAC 활성화
 #define DAC1_ENABLE			false
 

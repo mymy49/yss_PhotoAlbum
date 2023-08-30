@@ -28,9 +28,11 @@
 #include <dev/speaker.h>
 #include <mod/spi_tft_lcd/MSP3520.h>
 #include <gui/Bmp888Buffer.h>
+#include <util/FunctionQueue.h>
 
 extern MSP3520 lcd;
 extern Bmp888Buffer frame;
+extern FunctionQueue fq;
 
 // 보드의 장치들을 초기화 한다.
 void initializeBoard(void);
@@ -40,6 +42,12 @@ void initializeBoard(void);
 // float dimming
 //		밝기를 설정한다. 0 ~ 1까지 값으로 1이 가장 밝은 값이다. 
 void setLcdBackLight(float dimming);
+
+// LCD의 백라이트를 점차 밝아지게 한다.
+void fadeinBackLight(void);
+
+// LCD의 백라이트를 점차 어두워지게 한다.
+void fadeoutBackLight(void);
 
 #endif
 

@@ -25,7 +25,10 @@
 #include <yss.h>
 
 MSP3520 lcd;
+
 Bmp888Buffer frame(100 * 100);
+
+FunctionQueue fq(16);
 
 Pwm *gBlPwm;
 
@@ -79,8 +82,6 @@ void initializeBoard(void)
 	lcd.setBmp888Buffer(frame);
 	lcd.initialize();
 	lcd.clear();
-
-	setLcdBackLight(1.);
 }
 
 void setLcdBackLight(float dimming)
@@ -88,3 +89,22 @@ void setLcdBackLight(float dimming)
 	gBlPwm->setRatio(dimming);
 }
 
+void fadeinBackLight(void)
+{
+	// 백라이트를 Fade in 한다.
+	for(uint32_t i=0;i<100;i++)
+	{
+		setLcdBackLight((float)i/100.f);
+		thread::delay(10);
+	}
+}
+
+void fadeoutBackLight(void)
+{
+	// 백라이트를 Fade out 한다.
+	for(uint32_t i=0;i<=100;i++)
+	{
+		setLcdBackLight((float)(100-i)/100.f);
+		thread::delay(10);
+	}
+}
