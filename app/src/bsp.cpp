@@ -26,7 +26,7 @@
 
 MSP3520 lcd;
 
-Bmp888Buffer frame(100 * 100);
+Bmp888Buffer frame(10000);
 
 FunctionQueue fq(16);
 
@@ -81,6 +81,7 @@ void initializeBoard(void)
 	lcd.setConfig(lcdConfig);
 	lcd.setBmp888Buffer(frame);
 	lcd.initialize();
+	lcd.setDirection(false, true, true);
 	lcd.clear();
 }
 

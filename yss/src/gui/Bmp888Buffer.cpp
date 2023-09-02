@@ -181,6 +181,7 @@ void Bmp888Buffer::fillRect(Position p1, Position p2)
 {
 	int16_t sx, ex, sy, ey;
 	uint8_t *des = mFrameBuffer;
+	uint16_t width;
 
 	if (p1.x < p2.x)
 	{
@@ -210,9 +211,10 @@ void Bmp888Buffer::fillRect(Position p1, Position p2)
 		ex = mSize.width - 1;
 
 	des += sx * 3 + sy * mSize.width * 3;
+	width = ex - sx;
 	for (int16_t y = sy; y <= ey; y++)
 	{
-		copyRgb888DotPattern(des, mBrushColorCode, mSize.width);
+		copyRgb888DotPattern(des, mBrushColorCode, width);
 		des += mSize.width * 3;
 	}
 }

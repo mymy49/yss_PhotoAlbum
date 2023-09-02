@@ -46,14 +46,15 @@ copyRgb888DotPattern:
 	lsr r7, r1, #16
 	lsl r3, r1, #8
 	orr r7, r3
+	ands r3, r0, #3
+	bne unalignedRepeat
 repeat:
 	subs r3, r2, #64
 	bge greater
 	mov r3, #64
-	subs r4, r3, r2
-	mov r3, #4
-	udiv r4, r4, r3
-	lsl r4, #1
+	and r4, r2, #0xFFFFFFFC
+	subs r4, r3, r4
+	lsr r4, #1
 	bic r2, #0xFFFFFFFC
 	add pc, pc, r4
 greater:
@@ -74,6 +75,7 @@ greater:
 	stmia   R0!,{R5-R7}
 	stmia   R0!,{R5-R7}
 	stmia   R0!,{R5-R7}
+remain:
 	subs r3, r2, #4
 	bhi repeat
 	movs r2, r2
@@ -96,4 +98,68 @@ greater:
 finish:
 	pop {r3-r7}
 	bx lr
+
+unalignedRepeat:
+	subs r3, r2, #64
+	bge unalignedGreater
+	mov r3, #64
+	and r4, r2, #0xFFFFFFFC
+	subs r4, r3, r4
+	mov r3, #3
+	mul r4, r4, r3
+	bic r2, #0xFFFFFFFC
+	add pc, pc, r4
+unalignedGreater:
+	subs r2, #64
+	str R5, [R0], #4
+	str R6, [R0], #4
+	str R7, [R0], #4
+	str R5, [R0], #4
+	str R6, [R0], #4
+	str R7, [R0], #4
+	str R5, [R0], #4
+	str R6, [R0], #4
+	str R7, [R0], #4
+	str R5, [R0], #4
+	str R6, [R0], #4
+	str R7, [R0], #4
+	str R5, [R0], #4
+	str R6, [R0], #4
+	str R7, [R0], #4
+	str R5, [R0], #4
+	str R6, [R0], #4
+	str R7, [R0], #4
+	str R5, [R0], #4
+	str R6, [R0], #4
+	str R7, [R0], #4
+	str R5, [R0], #4
+	str R6, [R0], #4
+	str R7, [R0], #4
+	str R5, [R0], #4
+	str R6, [R0], #4
+	str R7, [R0], #4
+	str R5, [R0], #4
+	str R6, [R0], #4
+	str R7, [R0], #4
+	str R5, [R0], #4
+	str R6, [R0], #4
+	str R7, [R0], #4
+	str R5, [R0], #4
+	str R6, [R0], #4
+	str R7, [R0], #4
+	str R5, [R0], #4
+	str R6, [R0], #4
+	str R7, [R0], #4
+	str R5, [R0], #4
+	str R6, [R0], #4
+	str R7, [R0], #4
+	str R5, [R0], #4
+	str R6, [R0], #4
+	str R7, [R0], #4
+	str R5, [R0], #4
+	str R6, [R0], #4
+	str R7, [R0], #4
+	subs r3, r2, #4
+	bhi unalignedRepeat
+	b remain
 #endif
