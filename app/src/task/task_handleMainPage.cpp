@@ -1,40 +1,118 @@
-////////////////////////////////////////////////////////////////////////////////////////
-//
-// 저작권 표기 License_ver_3.2
-// 본 소스 코드의 소유권은 홍윤기에게 있습니다.
-// 어떠한 형태든 기여는 기증으로 받아들입니다.
-// 본 소스 코드는 아래 사항에 동의할 경우에 사용 가능합니다.
-// 아래 사항에 대해 동의하지 않거나 이해하지 못했을 경우 사용을 금합니다.
-// 본 소스 코드를 사용하였다면 아래 사항을 모두 동의하는 것으로 자동 간주 합니다.
-// 본 소스 코드의 상업적 또는 비 상업적 이용이 가능합니다.
-// 본 소스 코드의 내용을 임의로 수정하여 재배포하는 행위를 금합니다.
-// 본 소스 코드의 사용으로 인해 발생하는 모든 사고에 대해서 어떠한 법적 책임을 지지 않습니다.
-// 본 소스 코드의 어떤 형태의 기여든 기증으로 받아들입니다.
-//
-// Home Page : http://cafe.naver.com/yssoperatingsystem
-// Copyright 2023. 홍윤기 all right reserved.
-//
-////////////////////////////////////////////////////////////////////////////////////////
+/*
+	Copyright 2023. 홍윤기 all right reserved.
+
+	Permission is hereby granted, free of charge, to any person obtaining
+	a copy of this software and associated documentation files (the
+	"Software"), to deal in the Software without restriction, including
+	without limitation the rights to use, copy, modify, merge, publish,
+	distribute, sublicense, and/or sell copies of the Software, and to
+	permit persons to whom the Software is furnished to do so, subject to
+	the following conditions:
+
+	The above copyright notice and this permission notice shall be
+	included in all copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+	EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+	NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+	LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+	OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+	WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
 
 #include <task.h>
 #include <yss.h>
 #include <bsp.h>
 
+#include <dev/key.h>
+
+#include <../bmp/Folder.h>
+#include <../bmp/Folder_s.h>
+#include "../bmp/Information.h"
+#include "../bmp/Information_s.h"
+#include <../font/Noto_Sans_CJK_HK_DemiLight_16.h>
+#include <util/key.h>
+
+#define ITEM_COUNT	2
+
 namespace Task
 {
+	static int8_t gSelect;
+
+	void drawItem(uint8_t select)
+	{
+		if(select == 0)
+			lcd.drawBmp({10, 10}, &Folder_s);
+		else
+			lcd.drawBmp({10, 10}, &Folder);
+
+		frame.setSize(110, 20);
+		frame.setBackgroundColor(0x00, 0x00, 0x00);
+		frame.setFontColor(0xFF, 0xFF, 0xFF);
+		frame.setFont(Font_Noto_Sans_CJK_HK_DemiLight_16);
+		frame.clear();
+		frame.drawStringToCenterAligned("파일 탐색기");
+		lcd.drawBmp({10, 110}, frame.getBmp888());
+
+		if(select == 1)
+			lcd.drawBmp({130, 10}, &Information_s);
+		else
+			lcd.drawBmp({130, 10}, &Information);
+
+		frame.setSize(110, 20);
+		frame.setBackgroundColor(0x00, 0x00, 0x00);
+		frame.setFontColor(0xFF, 0xFF, 0xFF);
+		frame.setFont(Font_Noto_Sans_CJK_HK_DemiLight_16);
+		frame.clear();
+		frame.drawStringToCenterAligned("정보");
+		lcd.drawBmp({130, 110}, frame.getBmp888());
+	}
+
+	void drawMenuBackground(void)
+	{
+		lcd.setBackgroundColor(0x00, 0x00, 0x00);
+		lcd.clear();
+
+		drawItem(gSelect);
+	}
+
 	void thread_handleMainPage(void)
 	{
-		// LCD를 전부 적색으로 채운다.
+		bool leftKeyFlag = false, rightKeyFlag = false;
+
 		lcd.lock();
-		lcd.setBackgroundColor(0xFF, 0x00, 0x00);
-		lcd.clear();
+		drawMenuBackground();
 		lcd.unlock();
 		
 		// 백라이트를 Fade in 한다.
 		fadeinBackLight();
 
+		key::addPushHandler(Key::getLeft, leftKeyFlag);
+		key::addPushHandler(Key::getRight, rightKeyFlag);
+
 		while(1)
 		{
+			if(rightKeyFlag)
+			{
+				rightKeyFlag = false;
+				gSelect++;
+				if(gSelect >= ITEM_COUNT)
+					gSelect = 0;
+				
+				drawItem(gSelect);
+			}
+
+			if(leftKeyFlag)
+			{
+				leftKeyFlag = false;
+				gSelect--;
+				if(gSelect < 0)
+					gSelect = ITEM_COUNT-1;
+				
+				drawItem(gSelect);
+			}
+
 			thread::yield();
 		}
 	}

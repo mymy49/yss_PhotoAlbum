@@ -14,17 +14,25 @@
 //	Home Page : http://cafe.naver.com/yssoperatingsystem
 //	Copyright 2020.	yss Embedded Operating System all right reserved.
 //
-//  주담당자 : 아이구 (mymy49@nate.com) 2020.07.21 ~ 현재
+//  주담당자 : 아이구 (mymy49@nate.com) 2020.06.07 ~ 현재
 //  부담당자 : -
 //
 ////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef YSS_logo_BMP__H_
-#define YSS_logo_BMP__H_
+#ifndef YSS_Noto_Sans_CJK_HK_DemiLight_16_FONT__H_
+#define YSS_Noto_Sans_CJK_HK_DemiLight_16_FONT__H_
 
-#include <gui/Bmp565.h>
+#include <gui/Font.h>
 
-extern const struct Bmp565 logo;
+extern YssFontHeaderPartUnicode *Font_Noto_Sans_CJK_HK_DemiLight_16;
+
+// 점유 코드 용량 : 6.13 kB
+
+// 사용된 문자 : 
+/*
+파일 탐색기
+정보
+*/
 
 #endif
 
