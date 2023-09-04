@@ -34,12 +34,27 @@ namespace Key
 
 	bool getLeft(void)
 	{
-		return gpioC.getInputData(0);
+		return !gpioC.getInputData(0);
 	}
 
 	bool getRight(void)
 	{
-		return gpioC.getInputData(1);
+		return !gpioC.getInputData(1);
+	}
+
+	bool getCancel(void)
+	{
+		return !gpioC.getInputData(2);
+	}
+
+	bool getEnter(void)
+	{
+		return !gpioC.getInputData(3);
+	}
+
+	bool getAnyKey(void)
+	{
+		return (getLeft() || getRight() || getCancel() || getEnter());
 	}
 }
 

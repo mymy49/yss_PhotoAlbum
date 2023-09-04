@@ -23,6 +23,7 @@
 
 #include "../inc/task.h"
 #include <yss.h>
+#include <util/key.h>
 
 #define MAX_TASK_THREAD		4
 
@@ -32,10 +33,6 @@ namespace Task
 	threadId gThreadId[MAX_TASK_THREAD];
 	FunctionQueue *gFq;
 	Mutex gMutex;
-
-#if USE_GUI && YSS_L_HEAP_USE
-	Frame *gFrame;
-#endif
 
 	void setFunctionQueue(FunctionQueue &obj)
 	{
@@ -60,6 +57,8 @@ namespace Task
 
 	void clearTask(void)
 	{
+		key::clear();
+
 		for(uint32_t i=0;i<gThreadCnt;i++)
 		{
 			if(gThreadId[i])
@@ -69,22 +68,7 @@ namespace Task
 			}
 		}
 
-#if USE_GUI && YSS_L_HEAP_USE
-		if(gFrame)
-		{
-			delete gFrame;
-			gFrame = 0;
-		}
-#endif
 		gThreadCnt = 0;
 	}
-
-#if USE_GUI && YSS_L_HEAP_USE
-	void setFrame(Frame *obj)
-	{
-		setSystemFrame(obj);
-		gFrame = obj;
-	}
-#endif
 }
 

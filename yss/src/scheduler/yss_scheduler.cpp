@@ -301,10 +301,12 @@ void terminateThread(void) __attribute__((optimize("-O1")));
 void terminateThread(void)
 {
 	lockHmalloc();
+	__disable_irq();
 	hfree(gYssThreadList[gCurrentThreadNum].malloc);
 	gYssThreadList[gCurrentThreadNum].able = false;
 	gYssThreadList[gCurrentThreadNum].allocated = false;
 	gNumOfThread--;
+	__enable_irq();
 	unlockHmalloc();
 	thread::yield();
 }

@@ -26,6 +26,8 @@
 
 #include <dev/led.h>
 #include <dev/speaker.h>
+#include <dev/key.h>
+
 #include <mod/spi_tft_lcd/MSP3520.h>
 #include <gui/Bmp888Buffer.h>
 #include <util/FunctionQueue.h>

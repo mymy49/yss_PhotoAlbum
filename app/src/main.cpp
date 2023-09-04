@@ -32,7 +32,7 @@ int main(void)
 	
 	// 보드 초기화
 	initializeBoard();
-	
+
 	// Function Queue 기능을 활용하여 순차 처리를 한다.
 	fq.start();
 	fq.add(Task::displayLogo);		// 로고 출력

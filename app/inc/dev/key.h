@@ -42,6 +42,24 @@ namespace Key
 	// 반환
 	//		우측 버튼이 눌렸을 경우 true, 안눌렸을 경우 false를 반환한다.
 	bool getRight(void);
+
+	// 취소 버튼 키의 현재 상태를 얻는다.
+	//
+	// 반환
+	//		우측 버튼이 눌렸을 경우 true, 안눌렸을 경우 false를 반환한다.
+	bool getCancel(void);
+
+	// 엔터 버튼 키의 현재 상태를 얻는다.
+	//
+	// 반환
+	//		우측 버튼이 눌렸을 경우 true, 안눌렸을 경우 false를 반환한다.
+	bool getEnter(void);
+
+	// 전체 버튼 키 중에 하나라도 눌린 현재 상태를 얻는다.
+	//
+	// 반환
+	//		버튼이 눌렸을 경우 true, 안눌렸을 경우 false를 반환한다.
+	bool getAnyKey(void);
 }
 
 #endif

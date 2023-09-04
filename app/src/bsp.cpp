@@ -96,7 +96,7 @@ void fadeinBackLight(void)
 	for(uint32_t i=0;i<100;i++)
 	{
 		setLcdBackLight((float)i/100.f);
-		thread::delay(10);
+		thread::delay(5);
 	}
 }
 
@@ -106,6 +106,6 @@ void fadeoutBackLight(void)
 	for(uint32_t i=0;i<=100;i++)
 	{
 		setLcdBackLight((float)(100-i)/100.f);
-		thread::delay(10);
+		thread::delay(5);
 	}
 }

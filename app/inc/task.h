@@ -22,8 +22,6 @@
 #include <drv/Ltdc.h>
 #include <sac/Rtouch.h>
 
-class Frame;
-
 // FunctionQueue에 의해 순차 수행되는 task의 함수 프로토타입 선언부이다.
 namespace Task
 {
@@ -34,11 +32,14 @@ namespace Task
 	void clearTask(void);
 	void setFrame(Frame *obj);
 	
-	// task_Logo.cpp
+	// task_displayLogo.cpp
 	error displayLogo(FunctionQueue *obj);
 
 	// task_handleMainPage.cpp
 	error handleMainPage(FunctionQueue *obj);
+	
+	// task_displayInformation.cpp
+	error displayInformation(FunctionQueue *obj);
 }
 
 #endif

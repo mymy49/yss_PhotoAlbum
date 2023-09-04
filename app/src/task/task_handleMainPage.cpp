@@ -24,6 +24,7 @@
 #include <task.h>
 #include <yss.h>
 #include <bsp.h>
+#include <task.h>
 
 #include <dev/key.h>
 
@@ -79,17 +80,18 @@ namespace Task
 
 	void thread_handleMainPage(void)
 	{
-		bool leftKeyFlag = false, rightKeyFlag = false;
+		bool leftKeyFlag = false, rightKeyFlag = false, enterKeyFlag = false, ableFlag;
 
 		lcd.lock();
 		drawMenuBackground();
 		lcd.unlock();
 		
-		// 백라이트를 Fade in 한다.
-		fadeinBackLight();
-
 		key::addPushHandler(Key::getLeft, leftKeyFlag);
 		key::addPushHandler(Key::getRight, rightKeyFlag);
+		key::addPushHandler(Key::getEnter, enterKeyFlag);
+
+		// 백라이트를 Fade in 한다.
+		fadeinBackLight();
 
 		while(1)
 		{
@@ -113,6 +115,32 @@ namespace Task
 				drawItem(gSelect);
 			}
 
+			if(enterKeyFlag)
+			{
+				enterKeyFlag = false;
+				ableFlag = false;
+
+				fq.lock();
+				switch(gSelect)
+				{
+				case 0 : // 파일 탐색기
+					// 구현 안됨
+					break;
+				
+				case 1 : // 정보
+					ableFlag = true;
+					fq.add(Task::displayInformation);
+					break;
+				}
+				fq.unlock();
+				
+				if(ableFlag)
+				{
+					while(1)	// clearTask() 함수에 의한 쓰레드 종료 대기
+						thread::yield();
+				}
+			}
+
 			thread::yield();
 		}
 	}
@@ -125,8 +153,9 @@ namespace Task
 		fadeoutBackLight(); // 백라이트를 Fade out 한다.
 
 		addThread(thread_handleMainPage, 512);	// thread_handleMainPage() 함수를 스케줄러에 등록한다.
+												// addThread() 함수를 통해 등록된 쓰레드는 clearTask() 함수 호출시 종료 된다.
 
-		unlock();
+		unlock();	// 외부에서 강제로 종료가 가능하다.
 
 		return error::ERROR_NONE;
 	}
