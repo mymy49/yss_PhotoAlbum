@@ -90,8 +90,6 @@
 #define PWM3_ENABLE			false
 #define PWM4_ENABLE			false
 #define PWM5_ENABLE			false
-#define PWM6_ENABLE			false
-#define PWM7_ENABLE			false
 #define PWM8_ENABLE			false
 #define PWM9_ENABLE			false
 #define PWM10_ENABLE		false
@@ -99,6 +97,14 @@
 #define PWM12_ENABLE		false
 #define PWM13_ENABLE		false
 #define PWM14_ENABLE		false
+
+// QENCODER 활성화
+#define QENCODER1_ENABLE	false
+#define QENCODER2_ENABLE	false
+#define QENCODER3_ENABLE	false
+#define QENCODER4_ENABLE	false
+#define QENCODER5_ENABLE	false
+#define QENCODER8_ENABLE	false
 
 // SAI 활성화
 #define SAI1_ENABLE			false

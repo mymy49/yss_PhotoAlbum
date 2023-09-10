@@ -19,18 +19,17 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef YSS_Noto_Sans_CJK_HK_Medium_24_FONT__H_
-#define YSS_Noto_Sans_CJK_HK_Medium_24_FONT__H_
+#ifndef YSS_Noto_Sans_CJK_HK_DemiLight_32_FONT__H_
+#define YSS_Noto_Sans_CJK_HK_DemiLight_32_FONT__H_
 
 #include <gui/Font.h>
 
-extern YssFontHeaderPartUnicode *Font_Noto_Sans_CJK_HK_Medium_24;
+extern YssFontHeaderPartUnicode *Font_Noto_Sans_CJK_HK_DemiLight_32;
 
-// 점유 코드 용량 : 11.83 kB
+// 점유 코드 용량 : 17.77 kB
 
 // 사용된 문자 : 
 /*
-정보
 파일 탐색기
 */
 

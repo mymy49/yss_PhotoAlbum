@@ -25,12 +25,16 @@
 // FunctionQueue에 의해 순차 수행되는 task의 함수 프로토타입 선언부이다.
 namespace Task
 {
+	// task.cpp
 	void setFunctionQueue(FunctionQueue &obj);
 	void lock(void);
 	void unlock(void);
 	void addThread(void (*func)(void), uint32_t stackSize);
 	void clearTask(void);
 	void setFrame(Frame *obj);
+
+	// task_drawing.cpp
+	void drawBasicBackground(void);
 	
 	// task_displayLogo.cpp
 	error displayLogo(FunctionQueue *obj);
@@ -40,6 +44,9 @@ namespace Task
 	
 	// task_displayInformation.cpp
 	error displayInformation(FunctionQueue *obj);
+	
+	// task_handleFileExplorer.cpp
+	error handleFileExplorer(FunctionQueue *obj);
 }
 
 #endif

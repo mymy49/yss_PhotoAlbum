@@ -385,7 +385,7 @@ PwmCh1 pwm10Ch1((YSS_PWM_Peri*)TIM10, gPwm10DrvSetup);
 static void setPwm11ClockEn(bool en)
 {
 	clock.lock();
-    clock.enableApb2Clock(21, en);
+    clock.enableApb2Clock(RCC_APB2ENR_TIM11EN_Pos, en);
 	clock.unlock();
 }
 
@@ -424,14 +424,14 @@ PwmCh1 pwm11Ch1((YSS_PWM_Peri*)TIM11, gPwm11DrvSetup);
 static void setPwm12ClockEn(bool en)
 {
 	clock.lock();
-    clock.enableApb1Clock(6, en);
+    clock.enableApb1Clock(RCC_APB1ENR_TIM12EN_Pos, en);
 	clock.unlock();
 }
 
 static void setPwm12InterruptEn(bool en)
 {
 	nvic.lock();
-	nvic.enableInterrupt(TIMER8_BRK_TIMER12_IRQn, en);
+	nvic.enableInterrupt(TIM8_BRK_TIM12_IRQn, en);
 	nvic.unlock();
 }
 
@@ -450,8 +450,8 @@ static const Drv::Setup gPwm12DrvSetup =
 	getApb1TimerClockFrequency, //uint32_t (*getClockFunc)(void);
 };
 
-PwmCh1 pwm12Ch1((YSS_PWM_Peri*)TIMER12, gPwm12DrvSetup);
-PwmCh2 pwm12Ch2((YSS_PWM_Peri*)TIMER12, gPwm12DrvSetup);
+PwmCh1 pwm12Ch1((YSS_PWM_Peri*)TIM12, gPwm12DrvSetup);
+PwmCh2 pwm12Ch2((YSS_PWM_Peri*)TIM12, gPwm12DrvSetup);
 #endif
 
 
@@ -508,7 +508,7 @@ static void setPwm14ClockEn(bool en)
 static void setPwm14InterruptEn(bool en)
 {
 	nvic.lock();
-	nvic.enableInterrupt(TIMER8_TRG_COM_TIMER14_IRQn, en);
+	nvic.enableInterrupt(TIM8_TRG_COM_TIM14_IRQn, en);
 	nvic.unlock();
 }
 
@@ -527,7 +527,7 @@ static const Drv::Setup gPwm14DrvSetup =
 	getApb1TimerClockFrequency, //uint32_t (*getClockFunc)(void);
 };
 
-PwmCh1 pwm14Ch1((YSS_PWM_Peri*)TIMER14, gPwm14DrvSetup);
+PwmCh1 pwm14Ch1((YSS_PWM_Peri*)TIM14, gPwm14DrvSetup);
 #endif
 
 #endif

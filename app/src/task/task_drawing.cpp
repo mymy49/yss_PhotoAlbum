@@ -21,26 +21,33 @@
 	WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#include <task.h>
 #include <yss.h>
 #include <bsp.h>
-#include <task.h>
+#include <util/key.h>
 
-int main(void)
+#include <../font/Noto_Sans_CJK_HK_Medium_24.h>
+#include <../font/Noto_Sans_CJK_HK_DemiLight_14.h>
+
+namespace Task
 {
-	// 운영체체 초기화
-	initializeYss();
-	
-	// 보드 초기화
-	initializeBoard();
-
-	// Function Queue 기능을 활용하여 순차 처리를 한다.
-	fq.start();
-	fq.add(Task::displayLogo);		// 로고 출력
-	fq.add(Task::handleMainPage);		// 메인 페이지 처리
-
-	while(1)
+	void drawBasicBackground(void)
 	{
-		thread::yield();
+		Color titleColor(0x30, 0x30, 0xFF);
+		Color bgColor(0x00, 0x00, 0x00);
+
+		// 테두리색 칠하기
+		lcd.setBackgroundColor(titleColor);
+		lcd.clear();
+		
+		// 배경색 칠하기
+		lcd.setBrushColor(bgColor);
+		lcd.fillRect({10, 10}, Size{460, 300});
+
+		// 제목 배경 칠하기
+		lcd.setBrushColor(titleColor);
+		lcd.fillRect({140, 10}, Size{200, 30});
 	}
 }
+
 

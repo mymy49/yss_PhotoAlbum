@@ -26,11 +26,19 @@
 #include <bsp.h>
 #include <util/key.h>
 
+#include <../font/Noto_Sans_CJK_HK_DemiLight_32.h>
 #include <../font/Noto_Sans_CJK_HK_Medium_24.h>
 #include <../font/Noto_Sans_CJK_HK_DemiLight_14.h>
 
 namespace Task
 {
+	static void drawItemBackground(void)
+	{
+		// 배경색 칠하기
+		lcd.setBrushColor(0x30, 0x30, 0x30);
+		lcd.fillRect({20, 50}, Size{440, 250});
+	}
+	
 	static void drawPage(void)
 	{
 		Font font(Font_Noto_Sans_CJK_HK_DemiLight_14);
@@ -48,55 +56,26 @@ namespace Task
 		frame.setBackgroundColor(titleColor);
 		frame.setFontColor(0xFF, 0xFF, 0xFF);
 		frame.clear();
-		frame.drawStringToCenterAligned("정보");
+		frame.drawStringToCenterAligned("파일 탐색기");
 		lcd.drawBmp({140, 0}, frame.getBmp888());
 
-		// 본문 쓰기
-		frame.setSize(440, 20);
-		frame.setBackgroundColor(bgColor);
-		frame.setFont(font);
-		frame.setFontColor(0xFF, 0xFF, 0xFF);
-
-		pos.x = 20;
-		pos.y = 55;
-		frame.clear();
-		frame.drawString({0, 0}, "본 소프트웨어는 이순신 OS를 위한 예제 프로젝트입니다.");
-		lcd.drawBmp(pos, frame.getBmp888());
-
-		pos.y += 25;
-		frame.clear();
-		frame.drawString({0, 0}, "전자 앨범과 탁상 시계 기능을 구현 할 예정입니다.");
-		lcd.drawBmp(pos, frame.getBmp888());
-
-		pos.y += 25;
-		frame.clear();
-		frame.drawString({0, 0}, "이순신 OS에서 권장하는 프로그래밍 패턴을 제공하기 위해 진행합니다.");
-		lcd.drawBmp(pos, frame.getBmp888());
-
-		pos.y += 25;
-		frame.clear();
-		frame.drawString({0, 0}, "실무에 적용하는 예제 코드를 참고하시고 직접 활용 하는데 사용해보세요.");
-		lcd.drawBmp(pos, frame.getBmp888());
-
-		pos.y += 25;
-		frame.clear();
-		frame.drawString({0, 0}, "감사합니다.");
-		lcd.drawBmp(pos, frame.getBmp888());
+		drawItemBackground();
 	}
 
-	void thread_displayInformation(void)
+	void thread_handleFileExplorer(void)
 	{
 		bool anyKeyFlag = false;
 
 		lcd.lock();
 		drawPage();
 		lcd.unlock();
+
+		// 백라이트를 Fade in 한다.
+		fadeinBackLight();		
 		
 		// key 이벤트에 등록한다.
 		key::addPushHandler(Key::getAnyKey, anyKeyFlag);
 
-		// 백라이트를 Fade in 한다.
-		fadeinBackLight();		
 
 		while(1)
 		{
@@ -112,18 +91,18 @@ namespace Task
 			}
 		}
 	}
-
-	error displayInformation(FunctionQueue *obj)
+	
+	error handleFileExplorer(FunctionQueue *obj)
 	{
 		lock();	// unlock()을 만날 때까지 외부에서 이 함수를 강제 종료 시키지 못한다.
 		clearTask();	// 이전에 등록된 쓰레드 등을 전부 제거한다.
-
-		fadeoutBackLight(); // 백라이트를 Fade out 한다.
 		
-		addThread(thread_displayInformation, 1024);	// thread_displayInformation() 함수를 스케줄러에 등록한다.
-													// addThread() 함수를 통해 등록된 쓰레드는 clearTask() 함수 호출시 종료 된다.
+		fadeoutBackLight(); // 백라이트를 Fade out 한다.
 
-		unlock();	// 외부에서 강제로 종료가 가능하다.
+		addThread(thread_handleFileExplorer, 1024);	// thread_handleMainPage() 함수를 스케줄러에 등록한다.
+												// addThread() 함수를 통해 등록된 쓰레드는 clearTask() 함수 호출시 종료 된다.
+
+		unlock();
 
 		return error::ERROR_NONE;
 	}

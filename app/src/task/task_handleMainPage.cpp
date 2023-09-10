@@ -124,7 +124,8 @@ namespace Task
 				switch(gSelect)
 				{
 				case 0 : // 파일 탐색기
-					// 구현 안됨
+					ableFlag = true;
+					fq.add(Task::handleFileExplorer);
 					break;
 				
 				case 1 : // 정보

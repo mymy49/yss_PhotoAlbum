@@ -28,6 +28,8 @@
 
 #include <drv/peripheral.h>
 
+#include <drv/Qencoder.h>
+
 #if defined(ADC1)
 extern Adc adc1;
 #endif
@@ -254,6 +256,30 @@ extern PwmCh1 pwm13Ch1;
 
 #if defined(TIM14)
 extern PwmCh1 pwm14Ch1;
+#endif
+
+#if defined(TIM1)
+extern Qencoder qencoder1;
+#endif
+
+#if defined(TIM2)
+extern Qencoder qencoder2;
+#endif
+
+#if defined(TIM3)
+extern Qencoder qencoder3;
+#endif
+
+#if defined(TIM4)
+extern Qencoder qencoder4;
+#endif
+
+#if defined(TIM5)
+extern Qencoder qencoder5;
+#endif
+
+#if defined(TIM8)
+extern Qencoder qencoder8;
 #endif
 
 #if defined(SAI1)
