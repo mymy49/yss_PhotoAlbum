@@ -126,6 +126,8 @@ public:
 	uint32_t getApb1ClockFrequency(void);
 	uint32_t getApb2ClockFrequency(void);
 
+	uint8_t getPowerScale(void);
+
 #if defined(PLL_USE)
 	bool enableMainPll(uint8_t pllsrc, uint8_t m, uint16_t n, uint8_t pllPdiv, uint8_t qDiv, uint8_t rDiv);
 #if defined(PLL_P_USE)

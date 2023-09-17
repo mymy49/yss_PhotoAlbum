@@ -88,6 +88,9 @@ uint32_t getApb2TimerClockFrequency(void)
 }
 
 #if TIM1_ENABLE && (defined(TIMER1) || defined(TIM1))
+#if (1 < TIM1_ENABLE + PWM1_ENABLE + QENCODER1_ENABLE + CAPTURE1_ENABLE)
+	#error "STM32에서는 같은 번호의 TIM, PWM, QENCODER, CAPTURE의 중복 사용을 금지합니다."	
+#endif
 static void enableTimer1Clock(bool en)
 {
 	clock.lock();
@@ -150,6 +153,9 @@ void TIM1_UP_IRQHandler(void)
 
 
 #if TIM2_ENABLE && (defined(TIMER2) || defined(TIM2))
+#if (1 < TIM2_ENABLE + PWM2_ENABLE + QENCODER2_ENABLE + CAPTURE2_ENABLE)
+	#error "STM32에서는 같은 번호의 TIM, PWM, QENCODER, CAPTURE의 중복 사용을 금지합니다."	
+#endif
 static void enableTimer2Clock(bool en)
 {
 	clock.lock();
@@ -207,6 +213,9 @@ void TIM2_IRQHandler(void)
 
 
 #if TIM3_ENABLE && (defined(TIMER3) || defined(TIM3))
+#if (1 < TIM3_ENABLE + PWM3_ENABLE + QENCODER3_ENABLE + CAPTURE3_ENABLE)
+	#error "STM32에서는 같은 번호의 TIM, PWM, QENCODER, CAPTURE의 중복 사용을 금지합니다."	
+#endif
 static void enableTimer3Clock(bool en)
 {
 	clock.lock();
@@ -264,6 +273,9 @@ void TIM3_IRQHandler(void)
 
 
 #if TIM4_ENABLE && (defined(TIMER4) || defined(TIM4))
+#if (1 < TIM4_ENABLE + PWM4_ENABLE + QENCODER4_ENABLE + CAPTURE4_ENABLE)
+	#error "STM32에서는 같은 번호의 TIM, PWM, QENCODER, CAPTURE의 중복 사용을 금지합니다."	
+#endif
 static void enableTimer4Clock(bool en)
 {
 	clock.lock();
@@ -321,6 +333,9 @@ void TIM4_IRQHandler(void)
 
 
 #if TIM5_ENABLE && defined(TIM5)
+#if (1 < TIM5_ENABLE + PWM5_ENABLE + QENCODER5_ENABLE + CAPTURE5_ENABLE)
+	#error "STM32에서는 같은 번호의 TIM, PWM, QENCODER, CAPTURE의 중복 사용을 금지합니다."	
+#endif
 static void enableTimer5Clock(bool en)
 {
 	clock.lock();
@@ -378,6 +393,9 @@ void TIM5_IRQHandler(void)
 
 
 #if TIM6_ENABLE && defined(TIM6)
+#if (1 < TIM6_ENABLE + PWM6_ENABLE + QENCODER6_ENABLE + CAPTURE6_ENABLE)
+	#error "STM32에서는 같은 번호의 TIM, PWM, QENCODER, CAPTURE의 중복 사용을 금지합니다."	
+#endif
 static void enableTimer6Clock(bool en)
 {
 	clock.lock();
@@ -439,6 +457,9 @@ void TIM6_IRQHandler(void)
 
 
 #if TIM7_ENABLE && (defined(TIMER7_IRQn) || defined(TIM7))
+#if (1 < TIM7_ENABLE + PWM7_ENABLE + QENCODER7_ENABLE + CAPTURE7_ENABLE)
+	#error "STM32에서는 같은 번호의 TIM, PWM, QENCODER, CAPTURE의 중복 사용을 금지합니다."	
+#endif
 static void enableTimer7Clock(bool en)
 {
 	clock.lock();
@@ -491,6 +512,9 @@ void TIM7_IRQHandler(void)
 #endif
 
 #if TIM8_ENABLE && defined(TIM8)
+#if (1 < TIM8_ENABLE + PWM8_ENABLE + QENCODER8_ENABLE + CAPTURE8_ENABLE)
+	#error "STM32에서는 같은 번호의 TIM, PWM, QENCODER, CAPTURE의 중복 사용을 금지합니다."	
+#endif
 static void enableTimer8Clock(bool en)
 {
 	clock.lock();
@@ -551,6 +575,9 @@ void TIM8_UP_TIM13_IRQHandler(void)
 #endif
 
 #if TIM9_ENABLE && defined(TIM9)
+#if (1 < TIM9_ENABLE + PWM9_ENABLE + QENCODER9_ENABLE + CAPTURE9_ENABLE)
+	#error "STM32에서는 같은 번호의 TIM, PWM, QENCODER, CAPTURE의 중복 사용을 금지합니다."	
+#endif
 static void enableTimer9Clock(bool en)
 {
 	clock.lock();
@@ -602,6 +629,9 @@ void TIM1_BRK_TIM9_IRQHandler(void)
 #endif
 
 #if TIM10_ENABLE && defined(TIM10)
+#if (1 < TIM10_ENABLE + PWM10_ENABLE + QENCODER10_ENABLE + CAPTURE10_ENABLE)
+	#error "STM32에서는 같은 번호의 TIM, PWM, QENCODER, CAPTURE의 중복 사용을 금지합니다."	
+#endif
 static void enableTimer10Clock(bool en)
 {
 	clock.lock();
@@ -658,6 +688,9 @@ void TIM1_UP_TIM10_IRQHandler(void)
 
 
 #if TIM11_ENABLE && defined(TIM11)
+#if (1 < TIM11_ENABLE + PWM11_ENABLE + QENCODER11_ENABLE + CAPTURE11_ENABLE)
+	#error "STM32에서는 같은 번호의 TIM, PWM, QENCODER, CAPTURE의 중복 사용을 금지합니다."	
+#endif
 static void enableTimer11Clock(bool en)
 {
 	clock.lock();
@@ -711,6 +744,9 @@ void TIM1_TRG_COM_TIM11_IRQHandler(void)
 
 
 #if TIM12_ENABLE && defined(TIM12)
+#if (1 < TIM12_ENABLE + PWM12_ENABLE + QENCODER12_ENABLE + CAPTURE12_ENABLE)
+	#error "STM32에서는 같은 번호의 TIM, PWM, QENCODER, CAPTURE의 중복 사용을 금지합니다."	
+#endif
 static void enableTimer12Clock(bool en)
 {
 	clock.lock();
@@ -764,6 +800,9 @@ void TIM8_BRK_TIM12_IRQHandler(void)
 
 
 #if TIM13_ENABLE && defined(TIM13)
+#if (1 < TIM13_ENABLE + PWM13_ENABLE + QENCODER13_ENABLE + CAPTURE13_ENABLE)
+	#error "STM32에서는 같은 번호의 TIM, PWM, QENCODER, CAPTURE의 중복 사용을 금지합니다."	
+#endif
 static void enableTimer13Clock(bool en)
 {
 	clock.lock();
@@ -819,6 +858,9 @@ void TIM8_UP_TIM13_IRQHandler(void)
 
 
 #if TIM14_ENABLE && defined(TIM14)
+#if (1 < TIM14_ENABLE + PWM14_ENABLE + QENCODER14_ENABLE + CAPTURE14_ENABLE)
+	#error "STM32에서는 같은 번호의 TIM, PWM, QENCODER, CAPTURE의 중복 사용을 금지합니다."	
+#endif
 static void enableTimer14Clock(bool en)
 {
 	clock.lock();

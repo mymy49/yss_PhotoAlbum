@@ -23,6 +23,8 @@
 
 #include <bsp.h>
 #include <yss.h>
+#include <config.h>
+#include <targets/st/bitfield_stm32f446xx.h>
 
 MSP3520 lcd;
 
@@ -109,3 +111,67 @@ void fadeoutBackLight(void)
 		thread::delay(5);
 	}
 }
+
+void initializeSystem(void)
+{
+	// Power Controller 클럭 활성화
+	clock.enableApb1Clock(RCC_APB1ENR_PWREN_Pos);
+
+	// SYSCFG 클럭 활성화
+	clock.enableApb2Clock(RCC_APB2ENR_SYSCFGEN_Pos);
+
+	// 외부 고속 클럭 활성화
+	clock.enableHse(HSE_CLOCK_FREQ);
+
+	using namespace define::clock;
+	
+	clock.enableMainPll(
+		pll::src::HSE,				// uint8_t src
+		HSE_CLOCK_FREQ / 1000000,	// uint8_t m
+		360,						// uint16_t n
+		pll::pdiv::DIV2,			// uint8_t pDiv Sysclk
+		pll::qdiv::DIV6,			// uint8_t qDiv
+		pll::rdiv::DIV7				// uint8_t rDiv	
+	);
+
+	clock.enableSaiPll(
+		192,				// uint16_t n
+		pll::pdiv::DIV8,	// uint8_t pDiv SAI Clock
+		pll::qdiv::DIV15,	// uint8_t qDiv SAI Clock
+		pll::rdiv::DIV7		// uint8_t rDiv <- 사용되지 않음
+	);
+
+	clock.enableI2sPll(
+		192,						// uint16_t n
+		HSE_CLOCK_FREQ / 1000000,	// uint16_t m
+		pll::pdiv::DIV8,			// uint8_t pDiv
+		pll::qdiv::DIV15,			// uint8_t qDiv
+		pll::rdiv::DIV7				// uint8_t rDiv	
+	);
+
+	flash.setLatency(180000000, 33);
+
+	clock.setSysclk(
+		sysclk::src::PLL,				// uint8_t sysclkSrc;
+		divisionFactor::ahb::NO_DIV,	// uint8_t ahb;
+		divisionFactor::apb::DIV4,		// uint8_t apb1;
+		divisionFactor::apb::DIV2,		// uint8_t apb2;
+		33								// uint8_t vcc
+	);
+	
+	// Flash Prefetch, D/I 캐시 활성화
+	flash.enableDataCache();
+	flash.enableInstructionCache();
+	flash.enablePrefetch();
+	
+	// GPIO 클럭 활성화
+	clock.enableAhb1Clock(RCC_AHB1ENR_GPIOAEN_Pos);
+	clock.enableAhb1Clock(RCC_AHB1ENR_GPIOBEN_Pos);
+	clock.enableAhb1Clock(RCC_AHB1ENR_GPIOCEN_Pos);
+	clock.enableAhb1Clock(RCC_AHB1ENR_GPIODEN_Pos);
+	clock.enableAhb1Clock(RCC_AHB1ENR_GPIOEEN_Pos);
+	clock.enableAhb1Clock(RCC_AHB1ENR_GPIOFEN_Pos);
+	clock.enableAhb1Clock(RCC_AHB1ENR_GPIOGEN_Pos);
+	clock.enableAhb1Clock(RCC_AHB1ENR_GPIOHEN_Pos);
+}
+

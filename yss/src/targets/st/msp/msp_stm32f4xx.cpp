@@ -30,14 +30,16 @@
 #include <config.h>
 
 #include <yss/instance.h>
-#include <targets/st_gigadevice/rcc_stm32_gd32f4_f7.h>
+#if defined(STM32F446xx)
+#include <targets/st/bitfield_stm32f446xx.h>
+#endif
 
 extern "C"
 {
-void __WEAK SystemCoreClockUpdate(void)
-{
+	void __WEAK SystemCoreClockUpdate(void)
+	{
 
-}
+	}
 }
 
 void __WEAK initializeSystem(void)
@@ -77,7 +79,7 @@ void __WEAK initializeSystem(void)
 	clock.enableMainPll(
 		pll::src::HSE,				// uint8_t src
 		HSE_CLOCK_FREQ / 1000000,	// uint8_t m
-		288,						// uint16_t n
+		336,						// uint16_t n
 		pll::pdiv::DIV2,			// uint8_t pDiv Sysclk
 		pll::qdiv::DIV6,			// uint8_t qDiv
 		pll::rdiv::DIV7				// uint8_t rDiv	
@@ -98,7 +100,7 @@ void __WEAK initializeSystem(void)
 		pll::rdiv::DIV7				// uint8_t rDiv	
 	);
 
-	flash.setLatency(144000000, 33);
+	flash.setLatency(168000000, 33);
 #elif defined(STM32F411xE)
 	clock.enableMainPll(
 		pll::src::HSE,				// uint8_t src
@@ -134,9 +136,15 @@ void __WEAK initializeSystem(void)
 	clock.enableAhb1Clock(RCC_AHB1ENR_GPIOFEN_Pos);
 	clock.enableAhb1Clock(RCC_AHB1ENR_GPIOGEN_Pos);
 	clock.enableAhb1Clock(RCC_AHB1ENR_GPIOHEN_Pos);
+#if defined(RCC_AHB1ENR_GPIOIEN_Pos)
 	clock.enableAhb1Clock(RCC_AHB1ENR_GPIOIEN_Pos);
+#endif
+#if defined(RCC_AHB1ENR_GPIOJEN_Pos)
 	clock.enableAhb1Clock(RCC_AHB1ENR_GPIOJEN_Pos);
+#endif
+#if defined(RCC_AHB1ENR_GPIOKEN_Pos)
 	clock.enableAhb1Clock(RCC_AHB1ENR_GPIOKEN_Pos);
+#endif
 }
 
 void initializeDma(void)

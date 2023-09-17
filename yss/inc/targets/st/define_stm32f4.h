@@ -185,6 +185,16 @@ namespace define
 				};
 			}
 		}
+
+		namespace  powerScale
+		{
+			enum
+			{
+				SCALE3_MODE = 1,
+				SCALE2_MODE,
+				SCALE1_MODE,
+			};
+		}
 	}
 	
 	// DMA

@@ -52,9 +52,12 @@ static uint32_t gI2sCkinFreq __attribute__((section(".non_init")));
 #define HSE_MIN_FREQ			1000000
 #define HSE_MAX_FREQ			50000000
 
-#define AHB_MAX_FREQ			180000000
-#define APB1_MAX_FREQ			45000000
-#define APB2_MAX_FREQ			90000000
+#define AHB_MAX_FREQ_SCALE1		180000000
+#define AHB_MAX_FREQ_SCALE1_OVR	168000000
+#define AHB_MAX_FREQ_SCALE2		168000000
+#define AHB_MAX_FREQ_SCALE2_OVR	144000000
+#define AHB_MAX_FREQ_SCALE3		120000000
+#define AHB_MAX_FREQ_SCALE3_OVR	120000000
 
 // Main PLL
 #define PLL_VCO_MIN_FREQ		100000000
@@ -344,11 +347,17 @@ uint32_t Clock::getApb2ClockFrequency(void)
 	return getSystemClockFrequency() / gPpreDiv[((RCC->CFGR & RCC_CFGR_PPRE2_Msk) >> RCC_CFGR_PPRE2_Pos)];
 }
 
+uint8_t Clock::getPowerScale(void)
+{
+	return getFieldData(PWR->CR, PWR_CR_VOS_Msk, PWR_CR_VOS_Pos);
+}
+
 bool Clock::setSysclk(uint8_t sysclkSrc, uint8_t ahb, uint8_t apb1, uint8_t apb2, uint8_t vcc)
 {
 	(void)vcc;
 
-	int32_t  clk, ahbClk, apb1Clk, apb2Clk;
+	int32_t  clk, ahbClk, apb1Clk, apb2Clk, ahbMax, ahbOvr, apb1Max, apb2Max;
+	bool ovrFlag = false;
 
 	using namespace define::clock::sysclk::src;
 	switch (sysclkSrc)
@@ -372,17 +381,60 @@ bool Clock::setSysclk(uint8_t sysclkSrc, uint8_t ahb, uint8_t apb1, uint8_t apb2
 		return false;
 	}
 
+	switch(getPowerScale())
+	{
+	case define::clock::powerScale::SCALE1_MODE :
+		ahbOvr = AHB_MAX_FREQ_SCALE1_OVR;
+		ahbMax = AHB_MAX_FREQ_SCALE1;
+		break;
+
+	case define::clock::powerScale::SCALE2_MODE :
+		ahbOvr = AHB_MAX_FREQ_SCALE2_OVR;
+		ahbMax = AHB_MAX_FREQ_SCALE2;
+		break;
+
+	case define::clock::powerScale::SCALE3_MODE :
+		ahbOvr = AHB_MAX_FREQ_SCALE3_OVR;
+		ahbMax = AHB_MAX_FREQ_SCALE3;
+		break;
+	}
+
+
 	ahbClk = clk / gHpreDiv[ahb];
-	if (ahbClk > AHB_MAX_FREQ)
+	if(ahbClk > ahbOvr)
+	{
+		ovrFlag = true;
+		apb1Max = ahbMax / 4;
+		apb2Max = ahbMax / 2;
+	}
+	else
+	{
+		ovrFlag = false;
+		ahbMax = ahbOvr;
+		apb1Max = ahbOvr / 4;
+		apb2Max = ahbOvr / 2;
+	}
+
+	if (ahbClk > ahbMax)
 		return false;
 
 	apb1Clk = ahbClk / gPpreDiv[apb1];
-	if (apb1Clk > APB1_MAX_FREQ)
+	if (apb1Clk > apb1Max)
 		return false;
 
 	apb2Clk = ahbClk / gPpreDiv[apb2];
-	if (apb2Clk > APB2_MAX_FREQ)
+	if (apb2Clk > apb2Max)
 		return false;
+
+	if(ovrFlag)
+	{
+		setBitData(PWR->CR, true, PWR_CR_ODEN_Pos);
+		while(!getBitData(PWR->CSR, PWR_CSR_ODRDY_Pos))
+			;		
+		setBitData(PWR->CR, true, PWR_CR_ODSWEN_Pos);
+		while(!getBitData(PWR->CSR, PWR_CSR_ODSWRDY_Pos))
+			;		
+	}
 
 	// 버스 클럭 프리스케일러 설정
 	setThreeFieldData(RCC->CFGR, RCC_CFGR_PPRE2_Msk, apb2, RCC_CFGR_PPRE2_Pos, RCC_CFGR_PPRE1_Msk, apb1, RCC_CFGR_PPRE1_Pos, RCC_CFGR_HPRE_Msk, ahb, RCC_CFGR_HPRE_Pos);
