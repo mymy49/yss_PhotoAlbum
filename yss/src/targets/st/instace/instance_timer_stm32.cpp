@@ -119,7 +119,8 @@ static const Drv::Setup gDrvTimer1Setup =
 
 static const Timer::Setup gTimer1Setup = 
 {
-	TIM1
+	TIM1,						//YSS_TIMER_Dev *dev;
+	Timer::BIT::BIT_16			//uint8_t bit;
 };
 
 Timer timer1(gDrvTimer1Setup, gTimer1Setup);
@@ -184,7 +185,8 @@ static const Drv::Setup gDrvTimer2Setup =
 
 static const Timer::Setup gTimer2Setup = 
 {
-	TIM2
+	TIM2,						//YSS_TIMER_Dev *dev;
+	Timer::BIT::BIT_16			//uint8_t bit;
 };
 
 Timer timer2(gDrvTimer2Setup, gTimer2Setup);
@@ -240,7 +242,8 @@ static const Drv::Setup gDrvTimer3Setup =
 
 static const Timer::Setup gTimer3Setup = 
 {
-	TIM3
+	TIM3,						//YSS_TIMER_Dev *dev;
+	Timer::BIT::BIT_16			//uint8_t bit;
 };
 
 Timer timer3(gDrvTimer3Setup, gTimer3Setup);
@@ -296,7 +299,8 @@ static const Drv::Setup gDrvTimer4Setup =
 
 static const Timer::Setup gTimer4Setup = 
 {
-	TIM4
+	TIM4,						//YSS_TIMER_Dev *dev;
+	Timer::BIT::BIT_16			//uint8_t bit;
 };
 
 Timer timer4(gDrvTimer4Setup, gTimer4Setup);
@@ -352,7 +356,8 @@ static const Drv::Setup gDrvTimer5Setup =
 
 static const Timer::Setup gTimer5Setup = 
 {
-	TIM5
+	TIM5,						//YSS_TIMER_Dev *dev;
+	Timer::BIT::BIT_16			//uint8_t bit;
 };
 
 Timer timer5(gDrvTimer5Setup, gTimer5Setup);
@@ -408,7 +413,8 @@ static const Drv::Setup gDrvTimer6Setup =
 
 static const Timer::Setup gTimer6Setup = 
 {
-	TIM6
+	TIM6,						//YSS_TIMER_Dev *dev;
+	Timer::BIT::BIT_16			//uint8_t bit;
 };
 
 Timer timer6(gDrvTimer6Setup, gTimer6Setup);
@@ -464,7 +470,8 @@ static const Drv::Setup gDrvTimer7Setup =
 
 static const Timer::Setup gTimer7Setup = 
 {
-	TIM7
+	TIM7,						//YSS_TIMER_Dev *dev;
+	Timer::BIT::BIT_16			//uint8_t bit;
 };
 
 Timer timer7(gDrvTimer7Setup, gTimer7Setup);
@@ -515,7 +522,8 @@ static const Drv::Setup gDrvTimer8Setup =
 
 static const Timer::Setup gTimer8Setup = 
 {
-	TIM8
+	TIM8,						//YSS_TIMER_Dev *dev;
+	Timer::BIT::BIT_16			//uint8_t bit;
 };
 
 Timer timer8(gDrvTimer8Setup, gTimer8Setup);
@@ -574,7 +582,8 @@ static const Drv::Setup gDrvTimer9Setup =
 
 static const Timer::Setup gTimer9Setup = 
 {
-	TIM9
+	TIM9,						//YSS_TIMER_Dev *dev;
+	Timer::BIT::BIT_16			//uint8_t bit;
 };
 
 Timer timer9(gDrvTimer9Setup, gTimer9Setup);
@@ -624,7 +633,8 @@ static const Drv::Setup gDrvTimer10Setup =
 
 static const Timer::Setup gTimer10Setup = 
 {
-	TIM10
+	TIM10,						//YSS_TIMER_Dev *dev;
+	Timer::BIT::BIT_16			//uint8_t bit;
 };
 
 Timer timer10(gDrvTimer10Setup, gTimer10Setup);
@@ -679,7 +689,8 @@ static const Drv::Setup gDrvTimer11Setup =
 
 static const Timer::Setup gTimer11Setup = 
 {
-	TIM11
+	TIM11,						//YSS_TIMER_Dev *dev;
+	Timer::BIT::BIT_16			//uint8_t bit;
 };
 
 Timer timer11(gDrvTimer11Setup, gTimer11Setup);
@@ -731,7 +742,8 @@ static const Drv::Setup gDrvTimer12Setup =
 
 static const Timer::Setup gTimer12Setup = 
 {
-	TIM12
+	TIM12,						//YSS_TIMER_Dev *dev;
+	Timer::BIT::BIT_16			//uint8_t bit;
 };
 
 Timer timer12(gDrvTimer12Setup, gTimer12Setup);
@@ -783,7 +795,8 @@ static const Drv::Setup gDrvTimer13Setup =
 
 static const Timer::Setup gTimer13Setup = 
 {
-	TIM13
+	TIM13,						//YSS_TIMER_Dev *dev;
+	Timer::BIT::BIT_16			//uint8_t bit;
 };
 
 Timer timer13(gDrvTimer13Setup, gTimer13Setup);
@@ -837,7 +850,8 @@ static const Drv::Setup gDrvTimer14Setup =
 
 static const Timer::Setup gTimer14Setup = 
 {
-	TIM14
+	TIM14,						//YSS_TIMER_Dev *dev;
+	Timer::BIT::BIT_16			//uint8_t bit;
 };
 
 Timer timer14(gDrvTimer14Setup, gTimer14Setup);

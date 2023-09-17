@@ -81,7 +81,7 @@ bool Font::setChar(uint32_t utf8)
 		code = (uint32_t *)&mData[header->offsetOfCode[group]];
 		numOfChar = header->numOfChar[group];
 
-		for (int32_t  i = 0; i < numOfChar; i++)
+		for (uint32_t  i = 0; i < numOfChar; i++)
 		{
 			if (code[i] == utf8)
 			{
@@ -156,15 +156,20 @@ void Font::setCharWidth(uint8_t width)
 
 uint32_t Font::getUtf8(const char **src)
 {
-	uint32_t code = 0;
+	uint32_t utf8;
 
 	if (*(*src) >= 0xe0)
 	{
-		return ((uint32_t)*(*src)++ << 16) | ((uint32_t)*(*src)++ << 8) | *(*src)++;
+		utf8 = (uint32_t)*(*src)++ << 16;
+		utf8 |= (uint32_t)*((*src)++) << 8;
+		utf8 |= *(*src)++;
+		return utf8; 
 	}
 	else if (*(*src) >= 0xc0)
 	{
-		return ((uint32_t)*(*src)++ << 8) | *(*src)++;
+		utf8 = (uint32_t)*((*src)++) << 8;
+		utf8 |= *(*src)++;
+		return utf8; 
 	}
 	else if (*(*src) < 0x80)
 	{

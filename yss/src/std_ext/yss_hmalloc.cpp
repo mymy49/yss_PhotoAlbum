@@ -63,10 +63,13 @@ void unlockHmalloc(void)
 void *hmalloc(uint32_t size)
 {
 	void* addr = malloc(size);
-	if((uint32_t)addr >= 0)
+	if((uint32_t)addr > 0)
 	{
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
 		uint32_t *size = &((uint32_t*)addr)[-1];
 		gFreeSpace -= *size;	
+#pragma GCC diagnostic pop
 	}
 	return addr;
 }

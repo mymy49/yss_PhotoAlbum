@@ -77,8 +77,8 @@ error Sai::initializeI2sReceiverAsSub(const I2sSpecification &spec)
 										0 << SAI_xCR2_FTH_Pos;
 		mBlock->FRCR =	SAI_xFRCR_FSOFF_Msk | 
 										SAI_xFRCR_FSDEF_Msk |
-										((frame-1 << SAI_xFRCR_FSALL_Pos) & SAI_xFRCR_FSALL_Msk) | 
-										((frame*2-1 << SAI_xFRCR_FRL_Pos) & SAI_xFRCR_FRL_Msk) ;
+										(((frame - 1) << SAI_xFRCR_FSALL_Pos) & SAI_xFRCR_FSALL_Msk) | 
+										(((frame * 2 - 1) << SAI_xFRCR_FRL_Pos) & SAI_xFRCR_FRL_Msk) ;
 		mBlock->SLOTR =	(0x3 << SAI_xSLOTR_SLOTEN_Pos) | 
 										(1 << SAI_xSLOTR_NBSLOT_Pos);
 		break;
@@ -131,8 +131,8 @@ error Sai::initializeI2sTransmitterAsMain(const I2sSpecification &spec)
 										0 << SAI_xCR2_FTH_Pos;
 		mBlock->FRCR =	SAI_xFRCR_FSOFF_Msk | 
 										SAI_xFRCR_FSDEF_Msk |
-										((frame-1 << SAI_xFRCR_FSALL_Pos) & SAI_xFRCR_FSALL_Msk) | 
-										((frame*2-1 << SAI_xFRCR_FRL_Pos) & SAI_xFRCR_FRL_Msk) ;
+										(((frame - 1) << SAI_xFRCR_FSALL_Pos) & SAI_xFRCR_FSALL_Msk) | 
+										(((frame * 2 - 1) << SAI_xFRCR_FRL_Pos) & SAI_xFRCR_FRL_Msk) ;
 		mBlock->SLOTR =	(0x3 << SAI_xSLOTR_SLOTEN_Pos) | 
 										(1 << SAI_xSLOTR_NBSLOT_Pos);
 		break;

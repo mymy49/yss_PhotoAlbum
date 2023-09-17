@@ -67,7 +67,6 @@ error Spi::setSpecification(const Specification &spec)
 		return error::ERROR_NONE;
 	mLastSpec = &spec;
 
-	uint32_t mod;
 	uint32_t div, clk = Drv::getClockFrequency();
 
 	div = clk / spec.maxFreq;

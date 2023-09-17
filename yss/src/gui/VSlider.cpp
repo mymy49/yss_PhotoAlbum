@@ -52,14 +52,14 @@ void VSlider::paint(void)
 
 	mLastPos = mThisPos;
 
-	uint16_t buf;
+	int16_t buf;
 
 	buf = frameSize.width / 2;
-	Position p1 = Position{buf - 1, buf};
-	Position p2 = Position{p1.x, frameSize.height - buf};
+	Position p1 = Position{(int16_t)(buf - 1), buf};
+	Position p2 = Position{p1.x, (int16_t)(frameSize.height - buf)};
 
 	buf = frameSize.width - 6;
-	Size size = Size{buf, buf};
+	Size size = Size{(uint16_t)buf, (uint16_t)buf};
 
 	mFrameBuffer->clear();
 

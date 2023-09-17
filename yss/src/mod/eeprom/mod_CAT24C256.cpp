@@ -48,7 +48,6 @@ uint32_t CAT24C256::getSize(void)
 
 bool CAT24C256::init(const Config config)
 {
-	bool rt;
 	int8_t buf[4] = {0, 0};
 
 	mPeri = &(config.peri);
@@ -69,7 +68,7 @@ bool CAT24C256::init(const Config config)
 
 bool CAT24C256::writeBytes(uint32_t addr, void *src, uint32_t size)
 {
-	volatile uint8_t i, j, k, num;
+	volatile uint8_t i, k, num;
 	uint8_t *cSrc = (uint8_t *)src, buf[66];
 	bool rt;
 

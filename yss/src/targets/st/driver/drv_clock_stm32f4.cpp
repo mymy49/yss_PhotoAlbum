@@ -303,9 +303,8 @@ uint32_t Clock::getMainPllRFrequency(void)
 
 uint32_t Clock::getSystemClockFrequency(void)
 {
-	uint32_t clk;
-
 	using namespace define::clock::sysclk;
+
 	switch((RCC->CFGR & RCC_CFGR_SWS_Msk) >> RCC_CFGR_SWS_Pos)
 	{
 	case src::HSI :
@@ -347,8 +346,9 @@ uint32_t Clock::getApb2ClockFrequency(void)
 
 bool Clock::setSysclk(uint8_t sysclkSrc, uint8_t ahb, uint8_t apb1, uint8_t apb2, uint8_t vcc)
 {
-	int32_t  clk, ahbClk, apb1Clk, apb2Clk, adcClk;
-	int8_t buf;
+	(void)vcc;
+
+	int32_t  clk, ahbClk, apb1Clk, apb2Clk;
 
 	using namespace define::clock::sysclk::src;
 	switch (sysclkSrc)
@@ -451,7 +451,7 @@ void Clock::resetApb2(uint32_t position)
 
 void Clock::enableSdram(bool en)
 {
-	enableAhb3Clock(RCC_AHB3ENR_FMCEN_Pos);
+	enableAhb3Clock(RCC_AHB3ENR_FMCEN_Pos, en);
 }
 
 #if defined(GD32F4) || defined(STM32F429xx) || defined(STM32F7)
@@ -476,7 +476,7 @@ uint32_t Clock::getLtdcClockFrequency(void)
 #if defined(SAIPLL_USE)
 bool Clock::enableSaiPll(uint16_t n, uint8_t pDiv, uint8_t qDiv, uint8_t rDiv)
 {
-	uint32_t vco, p, q, r, buf, m;
+	uint32_t vco, buf;
 
 	if (~RCC->CR & RCC_CR_PLLRDY_Msk)
 		goto error;
@@ -485,16 +485,19 @@ bool Clock::enableSaiPll(uint16_t n, uint8_t pDiv, uint8_t qDiv, uint8_t rDiv)
 		goto error;
 
 #if defined(SAIPLL_P_USE)
+	uint32_t p;
 	if (pDiv > SAIPLL_P_MAX)
 		goto error;
 #endif
 
 #if defined(SAIPLL_Q_USE)
+	uint32_t q;
 	if (SAIPLL_Q_MIN > qDiv || qDiv > SAIPLL_Q_MAX)
 		goto error;
 #endif
 
 #if defined(SAIPLL_R_USE)
+	uint32_t r;
 	if (SAIPLL_R_MIN > rDiv || rDiv > SAIPLL_R_MAX)
 		goto error;
 #endif

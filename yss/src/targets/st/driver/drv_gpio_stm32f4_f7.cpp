@@ -105,7 +105,7 @@ void Gpio::setOutput(uint8_t pin, bool data)
 	if(data)
 		mDev->BSRR = 1 << pin;
 	else
-		mDev->BSRR = 1 << pin + 16;
+		mDev->BSRR = 1 << (pin + 16);
 }
 
 void Gpio::setPullUpDown(uint8_t pin, uint8_t pupd)

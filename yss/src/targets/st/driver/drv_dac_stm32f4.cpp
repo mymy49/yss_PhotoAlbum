@@ -48,12 +48,12 @@ void Dac::initialize(void)
 
 void Dac::enableChannel1(bool en)
 {
-	setBitData(mDev->CR, true, 0);	// DAC Enable
+	setBitData(mDev->CR, en, DAC_CR_EN1_Pos);	// DAC Enable
 }
 
 void Dac::enableChannel2(bool en)
 {
-	setBitData(mDev->CR, true, 16);	// DAC Enable
+	setBitData(mDev->CR, en, DAC_CR_EN2_Pos);	// DAC Enable
 }
 
 void Dac::setOutputChannel1(uint16_t value)

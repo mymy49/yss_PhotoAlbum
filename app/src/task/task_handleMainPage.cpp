@@ -148,6 +148,8 @@ namespace Task
 
 	error handleMainPage(FunctionQueue *obj)
 	{
+		(void)obj;
+
 		lock();	// unlock()을 만날 때까지 외부에서 이 함수를 강제 종료 시키지 못한다.
 		clearTask();	// 이전에 등록된 쓰레드 등을 전부 제거한다.
 		

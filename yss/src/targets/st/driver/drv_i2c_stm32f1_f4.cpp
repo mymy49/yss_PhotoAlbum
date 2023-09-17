@@ -94,7 +94,6 @@ error I2c::initializeAsMain(uint8_t speed)
 
 error I2c::send(uint8_t addr, void *src, uint32_t size, uint32_t timeout)
 {
-	uint8_t *data = (uint8_t *)src;
 	uint64_t endingTime = runtime::getMsec() + timeout;
 
 	setBitData(mDev->CR1, true, 8);		// start
@@ -120,8 +119,6 @@ error I2c::send(uint8_t addr, void *src, uint32_t size, uint32_t timeout)
 error I2c::receive(uint8_t addr, void *des, uint32_t size, uint32_t timeout)
 {
 	uint64_t endingTime = runtime::getMsec() + timeout;
-	uint8_t *data = (uint8_t *)des;
-	volatile uint16_t sr;
 
 	switch (size)
 	{

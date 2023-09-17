@@ -43,7 +43,7 @@ class FrameBuffer : public Brush
 	~FrameBuffer(void);
 	void *getFrameBuffer(void);
 	void setSize(Size size);
-	void setSize(int16_t width, int16_t height);
+	void setSize(uint16_t width, uint16_t height);
 	Size getSize(void);
 	uint8_t getColorMode(void);
 	void setAlpha(uint8_t alpha);

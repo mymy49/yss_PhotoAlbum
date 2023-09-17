@@ -46,6 +46,9 @@ void ILI9488_with_Brush_RGB888::drawDot(int16_t x, int16_t y)
 
 void ILI9488_with_Brush_RGB888::drawDot(int16_t x, int16_t y, uint16_t color)
 {
+	(void)x;
+	(void)y;
+	(void)color;
 }
 
 void ILI9488_with_Brush_RGB888::drawDot(int16_t x, int16_t y, uint32_t color)
@@ -74,6 +77,9 @@ void ILI9488_with_Brush_RGB888::drawDot(int16_t x, int16_t y, Color color)
 
 void ILI9488_with_Brush_RGB888::drawFontDot(int16_t x, int16_t y, uint8_t color)
 {
+	(void)x;
+	(void)y;
+	(void)color;
 }
 
 void ILI9488_with_Brush_RGB888::eraseDot(Position pos)
@@ -137,7 +143,7 @@ void ILI9488_with_Brush_RGB888::clear(void)
 	mBmp888Brush->setBackgroundColor(mBgColor);
 	mBmp888Brush->clear();
 	
-	for(int32_t  i=0;i<loop;i++)
+	for(uint32_t i=0;i<loop;i++)
 	{
 		drawBmp(Position{0, (int16_t)(height * i)}, mBmp888Brush->getBmp888());
 	}
@@ -150,7 +156,7 @@ void ILI9488_with_Brush_RGB888::fillRect(Position p1, Position p2)
 {
 	if(!mBmp888Brush)
 		return;
-	uint32_t width, height, loop, bufHeight, y;
+	uint32_t width, height, loop, bufHeight;
 	Position pos;
 
 	if(p1.x < p2.x)
@@ -170,13 +176,11 @@ void ILI9488_with_Brush_RGB888::fillRect(Position p1, Position p2)
 	{
 		height = p2.y - p1.y;
 		pos.y = p1.y;
-		y = p1.y;
 	}
 	else if(p1.y > p2.y)
 	{
 		height = p1.y - p2.y;
 		pos.y = p2.y;
-		y = p2.y;
 	}
 	else
 		return;
@@ -191,7 +195,7 @@ void ILI9488_with_Brush_RGB888::fillRect(Position p1, Position p2)
 	mBmp888Brush->setBackgroundColor(mBrushColor);
 	mBmp888Brush->clear();
 	
-	for(int32_t  i=0;i<loop;i++)
+	for(uint32_t  i=0;i<loop;i++)
 	{
 		drawBmp(pos, mBmp888Brush->getBmp888());
 		pos.y += bufHeight;
