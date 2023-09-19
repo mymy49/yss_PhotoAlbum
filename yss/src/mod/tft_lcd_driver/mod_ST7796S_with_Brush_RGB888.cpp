@@ -124,7 +124,7 @@ void ST7796S_with_Brush_RGB888::clear(void)
 	mBmp888Buffer->setBackgroundColor(mBgColor);
 	mBmp888Buffer->clear();
 	
-	for(int32_t  i=0;i<loop;i++)
+	for(uint32_t  i=0;i<loop;i++)
 	{
 		drawBmp(Position{0, (int16_t)(height * i)}, mBmp888Buffer->getBmp888());
 	}
@@ -137,7 +137,7 @@ void ST7796S_with_Brush_RGB888::fillRect(Position p1, Position p2)
 {
 	if(!mBmp888Buffer)
 		return;
-	uint32_t width, height, loop, bufHeight, y;
+	uint32_t width, height, loop, bufHeight;
 	Position pos;
 
 	if(p1.x < p2.x)
@@ -157,13 +157,11 @@ void ST7796S_with_Brush_RGB888::fillRect(Position p1, Position p2)
 	{
 		height = p2.y - p1.y;
 		pos.y = p1.y;
-		y = p1.y;
 	}
 	else if(p1.y > p2.y)
 	{
 		height = p1.y - p2.y;
 		pos.y = p2.y;
-		y = p2.y;
 	}
 	else
 		return;
@@ -178,7 +176,7 @@ void ST7796S_with_Brush_RGB888::fillRect(Position p1, Position p2)
 	mBmp888Buffer->setBackgroundColor(mBrushColor);
 	mBmp888Buffer->clear();
 	
-	for(int32_t  i=0;i<loop;i++)
+	for(uint32_t  i=0;i<loop;i++)
 	{
 		drawBmp(pos, mBmp888Buffer->getBmp888());
 		pos.y += bufHeight;

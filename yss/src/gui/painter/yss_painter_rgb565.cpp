@@ -149,11 +149,11 @@ void fillRectangle(Rgb565 &obj, Position pos, Size size, Color color)
 	using namespace define::dma2d;
 	Dma2d::FillConfig config = 
 	{
-		(void*)desAddr,				//void *address;
-		color.getRgb565Code(),		//uint32_t color;
-		colorMode::RGB565,			//uint8_t colorMode;
-		desSize.width - size.width,	//int16_t destinationOffset;
-		size						//Size size;
+		(void*)desAddr,							//void *address;
+		color.getRgb565Code(),					//uint32_t color;
+		colorMode::RGB565,						//uint8_t colorMode;
+		(int16_t)(desSize.width - size.width),	//int16_t destinationOffset;
+		size									//Size size;
 	};
 	
 	dma2d.lock();

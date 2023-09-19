@@ -52,14 +52,14 @@ void HSlider::paint(void)
 
 	mLastPos = mThisPos;
 
-	uint16_t buf;
+	int16_t buf;
 
 	buf = frameSize.height / 2;
-	Position p1 = Position{buf, buf - 1};
-	Position p2 = Position{frameSize.width - buf, p1.y};
+	Position p1 = Position{buf, (int16_t)(buf - 1)};
+	Position p2 = Position{(int16_t)(frameSize.width - buf), p1.y};
 
 	buf = frameSize.height - 6;
-	Size size = Size{buf, buf};
+	Size size = Size{(uint16_t)buf, (uint16_t)buf};
 
 	mFrameBuffer->clear();
 

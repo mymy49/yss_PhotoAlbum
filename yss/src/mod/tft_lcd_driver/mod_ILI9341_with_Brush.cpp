@@ -134,7 +134,7 @@ void ILI9341_with_Brush::clear(void)
 	mBmpBrush->setBackgroundColor(mBgColor);
 	mBmpBrush->clear();
 	
-	for(int32_t  i=0;i<loop;i++)
+	for(uint32_t  i=0;i<loop;i++)
 	{
 		drawBmp(Position{0, (int16_t)(height * i)}, mBmpBrush->getBmp565());
 	}
@@ -147,7 +147,7 @@ void ILI9341_with_Brush::fillRect(Position p1, Position p2)
 {
 	if(!mBmpBrush)
 		return;
-	uint32_t width, height, loop, bufHeight, y;
+	uint32_t width, height, loop, bufHeight;
 	Position pos;
 
 	if(p1.x < p2.x)
@@ -167,13 +167,11 @@ void ILI9341_with_Brush::fillRect(Position p1, Position p2)
 	{
 		height = p2.y - p1.y;
 		pos.y = p1.y;
-		y = p1.y;
 	}
 	else if(p1.y > p2.y)
 	{
 		height = p1.y - p2.y;
 		pos.y = p2.y;
-		y = p2.y;
 	}
 	else
 		return;
@@ -188,7 +186,7 @@ void ILI9341_with_Brush::fillRect(Position p1, Position p2)
 	mBmpBrush->setBackgroundColor(mBrushColor);
 	mBmpBrush->clear();
 	
-	for(int32_t  i=0;i<loop;i++)
+	for(uint32_t  i=0;i<loop;i++)
 	{
 		drawBmp(pos, mBmpBrush->getBmp565());
 		pos.y += bufHeight;

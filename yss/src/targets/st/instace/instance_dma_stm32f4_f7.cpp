@@ -82,7 +82,8 @@ const Drv::Config gDrvDmaChannel1Config
 {
 	enableDma1Clock,			//void (*clockFunc)(bool en);
 	enableDma1Stream0Interrupt,	//void (*nvicFunc)(bool en);
-	0							//void (*resetFunc)(void);
+	0,							//void (*resetFunc)(void);
+	0							//uint32_t (*getClockFunc)(void);
 };
 
 const Dma::Config gDma1Config
@@ -120,7 +121,8 @@ const Drv::Config gDrvDmaChannel2Config
 {
 	enableDma1Clock,			//void (*clockFunc)(bool en);
 	enableDma1Stream1Interrupt,	//void (*nvicFunc)(bool en);
-	0							//void (*resetFunc)(void);
+	0,							//void (*resetFunc)(void);
+	0							//uint32_t (*getClockFunc)(void);
 };
 
 const Dma::Config gDma2Config
@@ -158,7 +160,8 @@ const Drv::Config gDrvDmaChannel3Config
 {
 	enableDma1Clock,			//void (*clockFunc)(bool en);
 	enableDma1Stream2Interrupt,	//void (*nvicFunc)(bool en);
-	0							//void (*resetFunc)(void);
+	0,							//void (*resetFunc)(void);
+	0							//uint32_t (*getClockFunc)(void);
 };
 
 const Dma::Config gDma3Config
@@ -196,7 +199,8 @@ const Drv::Config gDrvDmaChannel4Config
 {
 	enableDma1Clock,			//void (*clockFunc)(bool en);
 	enableDma1Stream3Interrupt,	//void (*nvicFunc)(bool en);
-	0							//void (*resetFunc)(void);
+	0,							//void (*resetFunc)(void);
+	0							//uint32_t (*getClockFunc)(void);
 };
 
 const Dma::Config gDma4Config
@@ -234,7 +238,8 @@ const Drv::Config gDrvDmaChannel5Config
 {
 	enableDma1Clock,			//void (*clockFunc)(bool en);
 	enableDma1Stream4Interrupt,	//void (*nvicFunc)(bool en);
-	0							//void (*resetFunc)(void);
+	0,							//void (*resetFunc)(void);
+	0							//uint32_t (*getClockFunc)(void);
 };
 
 const Dma::Config gDma5Config
@@ -271,7 +276,8 @@ const Drv::Config gDrvDmaChannel6Config
 {
 	enableDma1Clock,			//void (*clockFunc)(bool en);
 	enableDma1Stream5Interrupt,	//void (*nvicFunc)(bool en);
-	0							//void (*resetFunc)(void);
+	0,							//void (*resetFunc)(void);
+	0							//uint32_t (*getClockFunc)(void);
 };
 
 const Dma::Config gDma6Config
@@ -309,7 +315,8 @@ const Drv::Config gDrvDmaChannel7Config
 {
 	enableDma1Clock,			//void (*clockFunc)(bool en);
 	enableDma1Stream6Interrupt,	//void (*nvicFunc)(bool en);
-	0							//void (*resetFunc)(void);
+	0,							//void (*resetFunc)(void);
+	0							//uint32_t (*getClockFunc)(void);
 };
 
 const Dma::Config gDma7Config
@@ -347,7 +354,8 @@ const Drv::Config gDrvDmaChannel8Config
 {
 	enableDma1Clock,			//void (*clockFunc)(bool en);
 	enableDma1Stream7Interrupt,	//void (*nvicFunc)(bool en);
-	0							//void (*resetFunc)(void);
+	0,							//void (*resetFunc)(void);
+	0							//uint32_t (*getClockFunc)(void);
 };
 
 const Dma::Config gDma8Config
@@ -385,7 +393,8 @@ const Drv::Config gDrvDmaChannel9Config
 {
 	enableDma2Clock,			//void (*clockFunc)(bool en);
 	enableDma2Stream0Interrupt,	//void (*nvicFunc)(bool en);
-	0						//void (*resetFunc)(void);
+	0,							//void (*resetFunc)(void);
+	0							//uint32_t (*getClockFunc)(void);
 };
 
 const Dma::Config gDma9Config
@@ -423,7 +432,8 @@ const Drv::Config gDrvDmaChannel10Config
 {
 	enableDma2Clock,			//void (*clockFunc)(bool en);
 	enableDma2Stream1Interrupt,	//void (*nvicFunc)(bool en);
-	0							//void (*resetFunc)(void);
+	0,							//void (*resetFunc)(void);
+	0							//uint32_t (*getClockFunc)(void);
 };
 
 const Dma::Config gDma10Config
@@ -461,7 +471,8 @@ const Drv::Config gDrvDmaChannel11Config
 {
 	enableDma2Clock,			//void (*clockFunc)(bool en);
 	enableDma2Stream2Interrupt,	//void (*nvicFunc)(bool en);
-	0							//void (*resetFunc)(void);
+	0,							//void (*resetFunc)(void);
+	0							//uint32_t (*getClockFunc)(void);
 };
 
 const Dma::Config gDma11Config
@@ -499,7 +510,8 @@ const Drv::Config gDrvDmaChannel12Config
 {
 	enableDma2Clock,			//void (*clockFunc)(bool en);
 	enableDma2Stream3Interrupt,	//void (*nvicFunc)(bool en);
-	0							//void (*resetFunc)(void);
+	0,							//void (*resetFunc)(void);
+	0							//uint32_t (*getClockFunc)(void);
 };
 
 const Dma::Config gDma12Config
@@ -537,7 +549,8 @@ const Drv::Config gDrvDmaChannel13Config
 {
 	enableDma2Clock,			//void (*clockFunc)(bool en);
 	enableDma2Stream4Interrupt,	//void (*nvicFunc)(bool en);
-	0							//void (*resetFunc)(void);
+	0,							//void (*resetFunc)(void);
+	0							//uint32_t (*getClockFunc)(void);
 };
 
 const Dma::Config gDma13Config
@@ -575,7 +588,8 @@ const Drv::Config gDrvDmaChannel14Config
 {
 	enableDma2Clock,			//void (*clockFunc)(bool en);
 	enableDma2Stream5Interrupt,	//void (*nvicFunc)(bool en);
-	0							//void (*resetFunc)(void);
+	0,							//void (*resetFunc)(void);
+	0							//uint32_t (*getClockFunc)(void);
 };
 
 const Dma::Config gDma14Config
@@ -613,7 +627,8 @@ const Drv::Config gDrvDmaChannel15Config
 {
 	enableDma2Clock,			//void (*clockFunc)(bool en);
 	enableDma2Stream6Interrupt,	//void (*nvicFunc)(bool en);
-	0							//void (*resetFunc)(void);
+	0,							//void (*resetFunc)(void);
+	0							//uint32_t (*getClockFunc)(void);
 };
 
 const Dma::Config gDma15Config
@@ -651,7 +666,8 @@ const Drv::Config gDrvDmaChannel16Config
 {
 	enableDma2Clock,			//void (*clockFunc)(bool en);
 	enableDma2Stream7Interrupt,	//void (*nvicFunc)(bool en);
-	0							//void (*resetFunc)(void);
+	0,							//void (*resetFunc)(void);
+	0							//uint32_t (*getClockFunc)(void);
 };
 
 const Dma::Config gDma16Config

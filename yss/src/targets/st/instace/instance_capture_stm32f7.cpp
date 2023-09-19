@@ -39,9 +39,6 @@ uint32_t getApb1TimerClockFrequency(void);
 uint32_t getApb2TimerClockFrequency(void);
 
 #if CAPTURE1_ENABLE && defined(TIM1)
-#if TIM1_ENABLE || PWM1_ENABLE
-#error "CAPTURE1, PWM1, TIM1은 동시에 활성화 될 수 없습니다."
-#endif
 static void setCapture1ClockEn(bool en)
 {
 	clock.lock();
@@ -161,9 +158,6 @@ void TIM1_CC_IRQHandler(void)
 
 
 #if CAPTURE2_ENABLE && defined(TIM2)
-#if TIM2_ENABLE || PWM2_ENABLE
-#error "CAPTURE2, PWM2, TIM2은 동시에 활성화 될 수 없습니다."
-#endif
 static void setCapture2ClockEn(bool en)
 {
 	clock.lock();
@@ -249,9 +243,6 @@ void TIM2_IRQHandler(void)
 
 
 #if CAPTURE12_ENABLE && defined(TIM12)
-#if TIM2_ENABLE || PWM2_ENABLE
-#error "CAPTURE2, PWM2, TIM2은 동시에 활성화 될 수 없습니다."
-#endif
 static void setCapture12ClockEn(bool en)
 {
 	clock.lock();

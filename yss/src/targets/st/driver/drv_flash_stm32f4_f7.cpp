@@ -238,8 +238,6 @@ uint32_t Flash::getAddress(uint16_t sector)
 
 void Flash::erase(uint16_t sector)
 {
-	uint32_t cr;
-
 	if (sector >= 12)
 	{
 		sector -= 12;

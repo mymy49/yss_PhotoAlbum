@@ -78,7 +78,7 @@ Sdram::Sdram(const Drv::Config drvConfig) : Drv(drvConfig)
 
 bool Sdram::initialize(uint8_t bank, const Specification &spec, uint32_t freq)
 {
-	uint8_t sdclk, rpipe;
+	uint8_t sdclk = 0, rpipe;
 	uint32_t clk = freq, buf, t;
 
 	if (spec.maxFrequency > (clk >> 1))
@@ -157,8 +157,6 @@ static void waitWhileBusy(void)
 
 static void setSdcr(uint8_t bank, Sdcr obj)
 {
-	uint32_t *peri = (uint32_t*)FMC_Bank5_6;
-
 	if (bank == define::sdram::bank::BANK1)
 	{
 		uint32_t *buf = (uint32_t *)(&obj);

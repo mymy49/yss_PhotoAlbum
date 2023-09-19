@@ -51,7 +51,7 @@ void FrameBuffer::setSize(Size size)
 	setSize(size.width, size.height);
 }
 
-void FrameBuffer::setSize(int16_t width, int16_t height)
+void FrameBuffer::setSize(uint16_t width, uint16_t height)
 {
 	mSize = Size{width, height};
 

@@ -57,15 +57,19 @@
 #define YSS_USART3_6_IRQHandler		USART3_6_IRQHandler
 #endif
 
+#if USART2_ENABLE || USART3_ENABLE || USART4_ENABLE || UART4_ENABLE || USART5_ENABLE || UART5_ENABLE
 static uint32_t getApb1ClockFrequency(void)
 {
 	return clock.getApb1ClockFrequency();
 }
+#endif
 
+#if USART1_ENABLE || USART6_ENABLE
 static uint32_t getApb2ClockFrequency(void)
 {
 	return clock.getApb2ClockFrequency();
 }
+#endif
 
 #if defined(USART1) && USART1_ENABLE
 static void enableUart1Clock(bool en)
@@ -875,19 +879,19 @@ extern "C"
 {
 	void USART3_6_IRQHandler(void)
 	{
-#if defined(USART3) && UART3_ENABLE
+#if defined(USART3) && USART3_ENABLE
 		if(USART3->ISR & (USART_ISR_RXNE_Msk | USART_ISR_FE_Msk | USART_ISR_ORE_Msk | USART_ISR_FE_Msk))
 			usart3.isr();
 #endif
-#if defined(UART4) || defined(USART4) && UART4_ENABLE
+#if (defined(UART4) || defined(USART4)) && USART4_ENABLE
 		if(USART4->ISR & (USART_ISR_RXNE_Msk | USART_ISR_FE_Msk | USART_ISR_ORE_Msk | USART_ISR_FE_Msk))
 			usart4.isr();
 #endif
-#if (defined(UART5) || defined(USART5)) && UART5_ENABLE
+#if (defined(UART5) || defined(USART5)) && USART5_ENABLE
 		if(USART5->ISR & (USART_ISR_RXNE_Msk | USART_ISR_FE_Msk | USART_ISR_ORE_Msk | USART_ISR_FE_Msk))
 			usart5.isr();
 #endif
-#if defined(USART6) && UART6_ENABLE
+#if defined(USART6) && USART6_ENABLE
 		if(USART6->ISR & (USART_ISR_RXNE_Msk | USART_ISR_FE_Msk | USART_ISR_ORE_Msk | USART_ISR_FE_Msk))
 			usart6.isr();
 #endif

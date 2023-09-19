@@ -47,11 +47,11 @@
 
 // ####################### GUI 설정 #######################
 // GUI library Enable (true, false)
-#define USE_GUI				true
+#define USE_GUI				false
 
 // ####################### KEY 설정 #######################
 // 최대 KEY 생성 가능 갯수 설정 (0 ~ ), 0일 경우 기능 꺼짐
-#define NUM_OF_YSS_KEY		4
+#define NUM_OF_YSS_KEY		0
 
 // ###################### 주변 장치 활성화 ######################
 // 활성화 시킬 장치에 대해 false -> true로 변경하여 활성화 한다.
@@ -67,6 +67,9 @@
 // CAN 활성화
 #define CAN1_ENABLE			false
 #define CAN2_ENABLE			false
+
+// CRC32 활성화
+#define CRC32_ENABLE		false
 
 // DAC 활성화
 #define DAC1_ENABLE			false
@@ -87,8 +90,6 @@
 #define PWM3_ENABLE			false
 #define PWM4_ENABLE			false
 #define PWM5_ENABLE			false
-#define PWM6_ENABLE			false
-#define PWM7_ENABLE			false
 #define PWM8_ENABLE			false
 #define PWM9_ENABLE			false
 #define PWM10_ENABLE		false
@@ -96,6 +97,14 @@
 #define PWM12_ENABLE		false
 #define PWM13_ENABLE		false
 #define PWM14_ENABLE		false
+
+// QENCODER 활성화
+#define QENCODER1_ENABLE	false
+#define QENCODER2_ENABLE	false
+#define QENCODER3_ENABLE	false
+#define QENCODER4_ENABLE	false
+#define QENCODER5_ENABLE	false
+#define QENCODER8_ENABLE	false
 
 // SAI 활성화
 #define SAI1_ENABLE			false
@@ -132,3 +141,4 @@
 #define USART6_ENABLE		false
 
 #endif
+

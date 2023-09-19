@@ -53,7 +53,7 @@ Uart::Uart(const Drv::Setup drvSetup, const Setup setup) : Drv(drvSetup)
 
 error Uart::initialize(int32_t  baud, void *receiveBuffer, int32_t  receiveBufferSize)
 {
-	int32_t  man, fra, buf;
+	int32_t  man, fra;
 	int32_t  clk = Drv::getClockFrequency() >> 4;
 
 	mRcvBuf = (int8_t*)receiveBuffer;
@@ -113,8 +113,10 @@ error Uart::send(void *src, int32_t  size)
 	mDev->SR = ~USART_SR_TC;
 
 	if(mOneWireModeFlag)
+	{
 		setBitData(mDev->CR1, false, 2);	// RX 비활성화
-	
+	}
+
 	result = mTxDma->send(mTxDmaInfo, src, size);
 
 	if(result == error::ERROR_NONE)
@@ -122,7 +124,9 @@ error Uart::send(void *src, int32_t  size)
 			thread::yield();
 
 	if(mOneWireModeFlag)
+	{
 		setBitData(mDev->CR1, true, 2);	// RX 활성화
+	}
 
 	setBitData(mDev->CR3, false, 7);		// TX DMA 비활성화
 
@@ -134,7 +138,9 @@ error Uart::send(void *src, int32_t  size)
 void Uart::send(int8_t data)
 {
 	if(mOneWireModeFlag)
+	{
 		setBitData(mDev->CR1, false, 2);	// RX 비활성화
+	}
 
 	mDev->SR = ~USART_SR_TC;
 	mDev->DR = data;
@@ -142,7 +148,9 @@ void Uart::send(int8_t data)
 		thread::yield();
 
 	if(mOneWireModeFlag)
+	{
 		setBitData(mDev->CR1, true, 2);	// RX 활성화
+	}
 }
 
 void Uart::isr(void)

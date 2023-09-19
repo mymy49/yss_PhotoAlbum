@@ -94,7 +94,6 @@ error I2c::initializeAsMain(uint8_t speed)
 
 error I2c::send(uint8_t addr, void *src, uint32_t size, uint32_t timeout)
 {
-	uint8_t *data = (uint8_t *)src;
 	uint64_t endingTime = runtime::getMsec() + timeout;
 
 	setBitData(mDev->CR1, true, 8);		// start
@@ -102,7 +101,7 @@ error I2c::send(uint8_t addr, void *src, uint32_t size, uint32_t timeout)
 	mAddr = addr;
 	mDataCount = size;
 	mDataBuf = (uint8_t*)src;
-	mDev->CR2 |= I2C_CR2_ITBUFEN_Msk | I2C_CR2_ITEVTEN_Msk;
+	mDev->CR2 |= I2C_CR2_ITEVTEN_Msk;
 
 	while (mDataCount || getBitData(mDev->SR1, 2) == false) // Byte 전송 완료 비트 확인
 	{
@@ -120,8 +119,6 @@ error I2c::send(uint8_t addr, void *src, uint32_t size, uint32_t timeout)
 error I2c::receive(uint8_t addr, void *des, uint32_t size, uint32_t timeout)
 {
 	uint64_t endingTime = runtime::getMsec() + timeout;
-	uint8_t *data = (uint8_t *)des;
-	volatile uint16_t sr;
 
 	switch (size)
 	{
@@ -142,7 +139,7 @@ error I2c::receive(uint8_t addr, void *des, uint32_t size, uint32_t timeout)
 	mAddr = addr;
 	mDataCount = size;
 	mDataBuf = (uint8_t*)des;
-	mDev->CR2 |= I2C_CR2_ITBUFEN_Msk | I2C_CR2_ITEVTEN_Msk;
+	mDev->CR2 |= I2C_CR2_ITEVTEN_Msk;
 
 	while (mDataCount) // Byte 전송 완료 비트 확인
 	{
@@ -156,7 +153,7 @@ error I2c::receive(uint8_t addr, void *des, uint32_t size, uint32_t timeout)
 	
 	stop();
 
-	return error::TIMEOUT;
+	return error::ERROR_NONE;
 }
 
 void I2c::stop(void)
@@ -175,7 +172,7 @@ void I2c::stop(void)
 void I2c::isr(void)
 {
 	uint32_t sr1 = mDev->SR1;
-
+	
 	if(mDir == TRANSMIT)
 	{
 		if(sr1 & I2C_SR1_SB_Msk)
@@ -186,6 +183,7 @@ void I2c::isr(void)
 		else if(sr1 & I2C_SR1_ADDR_Msk)
 		{
 			mDev->SR2;
+			mDev->CR2 |= I2C_CR2_ITBUFEN_Msk;
 		}
 		else if(sr1 & I2C_SR1_TXE_Msk)
 		{
@@ -196,6 +194,10 @@ void I2c::isr(void)
 				mDev->DR = *mDataBuf++;
 				mDataCount--;
 			}
+		}
+		else
+		{
+			mDev->SR2;
 		}
 	}
 	else
@@ -208,6 +210,8 @@ void I2c::isr(void)
 		else if(sr1 & I2C_SR1_ADDR_Msk)
 		{
 			mDev->SR2;
+			mDev->CR2 |= I2C_CR2_ITBUFEN_Msk;
+
 			switch (mDataCount)
 			{
 			case 0:
@@ -235,6 +239,14 @@ void I2c::isr(void)
 			{
 				mDev->CR2 &= ~(I2C_CR2_ITBUFEN_Msk | I2C_CR2_ITEVTEN_Msk);
 			}
+		}
+		else if(sr1 & I2C_SR1_TXE_Msk)
+		{
+			mDev->DR;
+		}
+		else
+		{
+			mDev->SR2;
 		}
 	}
 }

@@ -33,10 +33,12 @@
 
 #if defined(STM32F030xC)
 #include <targets/st/bitfield_stm32f030xx.h>
-#elif defined(STM32F1_N)
+#elif defined(STM32F1_N) || defined(GD32F1)
 #include <targets/st/bitfield_stm32f103xx.h>
 #elif defined(STM32F446xx)
 #include <targets/st/bitfield_stm32f446xx.h>
+#elif defined(STM32F746xx)
+#include <targets/st/bitfield_stm32f746xx.h>
 #endif
 
 Timer::Timer(const Drv::Setup drvSetup, const Setup setup) : Drv(drvSetup)
@@ -109,6 +111,23 @@ void Timer::isrUpdate(void)
 	if (mIsrUpdate)
 		mIsrUpdate();
 	mTimeUpdateCnt++;
+}
+
+void Timer::setOnePulse(bool en)
+{
+	setBitData(mDev->CR1, en, TIM_CR1_OPM_Pos);
+}
+
+void Timer::changeFrequency(uint32_t freq)
+{
+	uint32_t psc, arr, clk = getClockFrequency();
+
+	arr = clk / freq;
+	psc = arr / (0xffff + 1);
+	arr /= psc + 1;
+
+	mDev->PSC = psc;
+	mDev->ARR = arr;
 }
 
 #endif

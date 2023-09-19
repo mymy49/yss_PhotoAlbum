@@ -49,7 +49,11 @@ struct Task
 	void *var;
 };
 
-Task gYssThreadList[MAX_THREAD] = {{.able = true, .allocated = true}};
+Task gYssThreadList[MAX_THREAD] = 
+{
+	{0, 0, 0, true, true, false, 0, 0, 0}
+};
+
 static int32_t gNumOfThread = 1;
 static int32_t  gCurrentThreadNum, gRoundRobinThreadNum;
 
@@ -193,9 +197,10 @@ threadId add(void (*func)(void *), void *var, int32_t  stackSize, void *r8, void
 	sp = (uint32_t *)((uint32_t )gYssThreadList[i].malloc & ~0x7) - 1;
 	sp += stackSize;
 	*sp-- = 0x61000000;									// xPSR
-	*sp-- = (uint32_t )func;								// PC
+	*sp-- = (uint32_t )func;							// PC
 	*sp-- = (uint32_t )(void (*)(void))terminateThread;	// LR
-	sp -= 4;
+	*sp-- = (uint32_t )r12;								// R12
+	sp -= 3;
 	*sp-- = (uint32_t )var;								// R0
 	sp -= 16;
 	*sp-- = (uint32_t )r11;								// R11
@@ -301,10 +306,12 @@ void terminateThread(void) __attribute__((optimize("-O1")));
 void terminateThread(void)
 {
 	lockHmalloc();
+	__disable_irq();
 	hfree(gYssThreadList[gCurrentThreadNum].malloc);
 	gYssThreadList[gCurrentThreadNum].able = false;
 	gYssThreadList[gCurrentThreadNum].allocated = false;
 	gNumOfThread--;
+	__enable_irq();
 	unlockHmalloc();
 	thread::yield();
 }

@@ -196,42 +196,36 @@ extern "C"
 #else
 	void EXTI0_IRQHandler(void)
 	{
-		volatile uint32_t *peri = (volatile uint32_t*)EXTI;
 		exti.isr(0);
 		EXTI->PR = 1 << 0;
 	}
 
 	void EXTI1_IRQHandler(void)
 	{
-		volatile uint32_t *peri = (volatile uint32_t*)EXTI;
 		exti.isr(1);
 		EXTI->PR = 1 << 1;
 	}
 
 	void EXTI2_IRQHandler(void)
 	{
-		volatile uint32_t *peri = (volatile uint32_t*)EXTI;
 		exti.isr(2);
 		EXTI->PR = 1 << 2;
 	}
 
 	void EXTI3_IRQHandler(void)
 	{
-		volatile uint32_t *peri = (volatile uint32_t*)EXTI;
 		exti.isr(3);
 		EXTI->PR = 1 << 3;
 	}
 
 	void EXTI4_IRQHandler(void)
 	{
-		volatile uint32_t *peri = (volatile uint32_t*)EXTI;
 		exti.isr(4);
 		EXTI->PR = 1 << 4;
 	}
 
 	void EXTI9_5_IRQHandler(void)
 	{
-		volatile uint32_t *peri = (volatile uint32_t*)EXTI;
 		uint32_t imr = EXTI->IMR;
 		uint32_t pd = EXTI->PR;
 
@@ -268,7 +262,6 @@ extern "C"
 
 	void EXTI15_10_IRQHandler(void)
 	{
-		volatile uint32_t *peri = (volatile uint32_t*)EXTI;
 		uint32_t imr = EXTI->IMR;
 		uint32_t pd = EXTI->PR;
 		

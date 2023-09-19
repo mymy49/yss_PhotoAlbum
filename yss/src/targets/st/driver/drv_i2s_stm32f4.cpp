@@ -57,10 +57,10 @@ I2s::I2s(const Drv::Config drvConfig, const Config config) : Drv(drvConfig)
 
 error I2s::initializeTransmitterAsMain(const Specification &spec)
 {
-	uint32_t multiple = 384;
-	uint32_t lrck = 128000;
-	uint32_t mclk = 49152000;
-	uint32_t clock = getClockFrequency();
+	//uint32_t multiple = 384;
+	//uint32_t lrck = 128000;
+	//uint32_t mclk = 49152000;
+	//uint32_t clock = getClockFrequency();
 
 	// I2s::Specification의 enum 정의가 STM32F 시리즈의 레지스터 기준으로 작성되어 1대1로 사용함
 	// 다른 MCU에서는 리맵이 필요함
@@ -93,10 +93,10 @@ error I2s::initializeTransmitterAsMain(const Specification &spec)
 
 error I2s::initializeTransmitterAsSub(const Specification &spec)
 {
-	uint32_t multiple = 384;
-	uint32_t lrck = 128000;
-	uint32_t mclk = 49152000;
-	uint32_t clock = getClockFrequency();
+	//uint32_t multiple = 384;
+	//uint32_t lrck = 128000;
+	//uint32_t mclk = 49152000;
+	//uint32_t clock = getClockFrequency();
 
 	// I2s::Specification의 enum 정의가 STM32F 시리즈의 레지스터 기준으로 작성되어 1대1로 사용함
 	// 다른 MCU에서는 리맵이 필요함

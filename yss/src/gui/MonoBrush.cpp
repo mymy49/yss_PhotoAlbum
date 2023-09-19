@@ -184,7 +184,7 @@ void MonoBrush::fill(void)
 void MonoBrush::drawLine(Position start, Position end, bool data)
 {
 	uint16_t startX = start.x, startY = start.y, endX = end.x, endY = end.y;
-	uint16_t buf, lenX, lenY, x, y;
+	uint16_t lenX, lenY, x, y;
 	float slope;
 
 	if (startX > mSize.width || endX > mSize.width || startY > mSize.height || endY > mSize.height)
@@ -331,7 +331,6 @@ void MonoBrush::drawRect(Position p1, Size size, bool data)
 
 void MonoBrush::drawCircle(Position pos, uint16_t radius, bool data)
 {
-	Position p;
 	float r = radius, x, y;
 
 	if (radius < 3)

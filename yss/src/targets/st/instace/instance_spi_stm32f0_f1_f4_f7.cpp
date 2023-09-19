@@ -45,15 +45,19 @@
 #include <targets/st/bitfield_stm32f103xx.h>
 #endif
 
+#if SPI2_ENABLE || SPI3_ENABLE
 static uint32_t getApb1ClockFrequency(void)
 {
 	return clock.getApb1ClockFrequency();
 }
+#endif
 
+#if SPI1_ENABLE || SPI4_ENABLE || SPI5_ENABLE
 static uint32_t getApb2ClockFrequency(void)
 {
 	return clock.getApb2ClockFrequency();
 }
+#endif
 
 #if SPI1_ENABLE && defined(SPI1)
 static void enableSpi1Clock(bool en)
@@ -295,7 +299,7 @@ extern "C"
 }
 #endif
 
-#if defined(SPI3_ENABLE) && defined(SPI3)
+#if SPI3_ENABLE && defined(SPI3)
 static void enableSpi3Clock(bool en)
 {
 	clock.lock();
@@ -411,7 +415,7 @@ extern "C"
 
 
 
-#if defined(SPI4_ENABLE) && defined(SPI4)
+#if SPI4_ENABLE && defined(SPI4)
 static void enableSpi4Clock(bool en)
 {
 	clock.lock();
@@ -499,7 +503,7 @@ extern "C"
 
 
 
-#if defined(SPI5_ENABLE) && defined(SPI5)
+#if SPI5_ENABLE && defined(SPI5)
 static void enableSpi5Clock(bool en)
 {
 	clock.lock();

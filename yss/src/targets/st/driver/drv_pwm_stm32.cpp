@@ -52,6 +52,18 @@ void Pwm::initialize(uint32_t psc, uint32_t arr, bool risingAtMatch)
 	initializeChannel(risingAtMatch);
 }
 
+void Pwm::changeFrequency(uint32_t freq)
+{
+	uint32_t psc, arr, clk = getClockFrequency();
+
+	arr = clk / freq;
+	psc = arr / (0xffff + 1);
+	arr /= psc + 1;
+
+	mPeri->PSC = psc;
+	mPeri->ARR = arr;
+}
+
 void Pwm::initialize(uint32_t freq, bool risingAtMatch)
 {
 	uint32_t psc, arr, clk = getClockFrequency();
@@ -83,7 +95,7 @@ void Pwm::stop(void)
 
 void Pwm::setOnePulse(bool en)
 {
-	setBitData(mPeri->CR1, en, 3);
+	setBitData(mPeri->CR1, en, TIM_CR1_OPM_Pos);
 }
 
 PwmCh1::PwmCh1(YSS_PWM_Peri *peri, const Drv::Setup drvSetup) : Pwm(peri, drvSetup)
@@ -114,11 +126,13 @@ uint32_t PwmCh1::getTopValue(void)
 
 void PwmCh1::setRatio(float ratio)
 {
-	if(ratio >= 1.0f)
-		ratio = 1.0f;
-	else if(ratio < 0.f)
-		ratio = 0.f;
-	mPeri->CCR1 = (uint16_t)((float)mPeri->ARR * ratio);
+	int32_t arr = mPeri->ARR, ccr = (float)arr * ratio;
+
+	if(ccr >= arr)
+		ccr = arr;
+	else if(ccr < 0)
+		ccr = 0;
+	mPeri->CCR1 = ccr;
 }
 
 void PwmCh1::setCounter(int32_t  counter)

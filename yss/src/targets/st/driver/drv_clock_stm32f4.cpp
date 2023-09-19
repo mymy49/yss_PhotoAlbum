@@ -52,9 +52,12 @@ static uint32_t gI2sCkinFreq __attribute__((section(".non_init")));
 #define HSE_MIN_FREQ			1000000
 #define HSE_MAX_FREQ			50000000
 
-#define AHB_MAX_FREQ			180000000
-#define APB1_MAX_FREQ			45000000
-#define APB2_MAX_FREQ			90000000
+#define AHB_MAX_FREQ_SCALE1		180000000
+#define AHB_MAX_FREQ_SCALE1_OVR	168000000
+#define AHB_MAX_FREQ_SCALE2		168000000
+#define AHB_MAX_FREQ_SCALE2_OVR	144000000
+#define AHB_MAX_FREQ_SCALE3		120000000
+#define AHB_MAX_FREQ_SCALE3_OVR	120000000
 
 // Main PLL
 #define PLL_VCO_MIN_FREQ		100000000
@@ -303,9 +306,8 @@ uint32_t Clock::getMainPllRFrequency(void)
 
 uint32_t Clock::getSystemClockFrequency(void)
 {
-	uint32_t clk;
-
 	using namespace define::clock::sysclk;
+
 	switch((RCC->CFGR & RCC_CFGR_SWS_Msk) >> RCC_CFGR_SWS_Pos)
 	{
 	case src::HSI :
@@ -345,10 +347,17 @@ uint32_t Clock::getApb2ClockFrequency(void)
 	return getSystemClockFrequency() / gPpreDiv[((RCC->CFGR & RCC_CFGR_PPRE2_Msk) >> RCC_CFGR_PPRE2_Pos)];
 }
 
+uint8_t Clock::getPowerScale(void)
+{
+	return getFieldData(PWR->CR, PWR_CR_VOS_Msk, PWR_CR_VOS_Pos);
+}
+
 bool Clock::setSysclk(uint8_t sysclkSrc, uint8_t ahb, uint8_t apb1, uint8_t apb2, uint8_t vcc)
 {
-	int32_t  clk, ahbClk, apb1Clk, apb2Clk, adcClk;
-	int8_t buf;
+	(void)vcc;
+
+	int32_t  clk, ahbClk, apb1Clk, apb2Clk, ahbMax, ahbOvr, apb1Max, apb2Max;
+	bool ovrFlag = false;
 
 	using namespace define::clock::sysclk::src;
 	switch (sysclkSrc)
@@ -372,17 +381,61 @@ bool Clock::setSysclk(uint8_t sysclkSrc, uint8_t ahb, uint8_t apb1, uint8_t apb2
 		return false;
 	}
 
+	switch(getPowerScale())
+	{
+	default :
+	case define::clock::powerScale::SCALE1_MODE :
+		ahbOvr = AHB_MAX_FREQ_SCALE1_OVR;
+		ahbMax = AHB_MAX_FREQ_SCALE1;
+		break;
+
+	case define::clock::powerScale::SCALE2_MODE :
+		ahbOvr = AHB_MAX_FREQ_SCALE2_OVR;
+		ahbMax = AHB_MAX_FREQ_SCALE2;
+		break;
+
+	case define::clock::powerScale::SCALE3_MODE :
+		ahbOvr = AHB_MAX_FREQ_SCALE3_OVR;
+		ahbMax = AHB_MAX_FREQ_SCALE3;
+		break;
+	}
+
+
 	ahbClk = clk / gHpreDiv[ahb];
-	if (ahbClk > AHB_MAX_FREQ)
+	if(ahbClk > ahbOvr)
+	{
+		ovrFlag = true;
+		apb1Max = ahbMax / 4;
+		apb2Max = ahbMax / 2;
+	}
+	else
+	{
+		ovrFlag = false;
+		ahbMax = ahbOvr;
+		apb1Max = ahbOvr / 4;
+		apb2Max = ahbOvr / 2;
+	}
+
+	if (ahbClk > ahbMax)
 		return false;
 
 	apb1Clk = ahbClk / gPpreDiv[apb1];
-	if (apb1Clk > APB1_MAX_FREQ)
+	if (apb1Clk > apb1Max)
 		return false;
 
 	apb2Clk = ahbClk / gPpreDiv[apb2];
-	if (apb2Clk > APB2_MAX_FREQ)
+	if (apb2Clk > apb2Max)
 		return false;
+
+	if(ovrFlag)
+	{
+		setBitData(PWR->CR, true, PWR_CR_ODEN_Pos);
+		while(!getBitData(PWR->CSR, PWR_CSR_ODRDY_Pos))
+			;		
+		setBitData(PWR->CR, true, PWR_CR_ODSWEN_Pos);
+		while(!getBitData(PWR->CSR, PWR_CSR_ODSWRDY_Pos))
+			;		
+	}
 
 	// 버스 클럭 프리스케일러 설정
 	setThreeFieldData(RCC->CFGR, RCC_CFGR_PPRE2_Msk, apb2, RCC_CFGR_PPRE2_Pos, RCC_CFGR_PPRE1_Msk, apb1, RCC_CFGR_PPRE1_Pos, RCC_CFGR_HPRE_Msk, ahb, RCC_CFGR_HPRE_Pos);
@@ -451,7 +504,7 @@ void Clock::resetApb2(uint32_t position)
 
 void Clock::enableSdram(bool en)
 {
-	enableAhb3Clock(RCC_AHB3ENR_FMCEN_Pos);
+	enableAhb3Clock(RCC_AHB3ENR_FMCEN_Pos, en);
 }
 
 #if defined(GD32F4) || defined(STM32F429xx) || defined(STM32F7)
@@ -476,7 +529,7 @@ uint32_t Clock::getLtdcClockFrequency(void)
 #if defined(SAIPLL_USE)
 bool Clock::enableSaiPll(uint16_t n, uint8_t pDiv, uint8_t qDiv, uint8_t rDiv)
 {
-	uint32_t vco, p, q, r, buf, m;
+	uint32_t vco, buf;
 
 	if (~RCC->CR & RCC_CR_PLLRDY_Msk)
 		goto error;
@@ -485,16 +538,19 @@ bool Clock::enableSaiPll(uint16_t n, uint8_t pDiv, uint8_t qDiv, uint8_t rDiv)
 		goto error;
 
 #if defined(SAIPLL_P_USE)
+	uint32_t p;
 	if (pDiv > SAIPLL_P_MAX)
 		goto error;
 #endif
 
 #if defined(SAIPLL_Q_USE)
+	uint32_t q;
 	if (SAIPLL_Q_MIN > qDiv || qDiv > SAIPLL_Q_MAX)
 		goto error;
 #endif
 
 #if defined(SAIPLL_R_USE)
+	uint32_t r;
 	if (SAIPLL_R_MIN > rDiv || rDiv > SAIPLL_R_MAX)
 		goto error;
 #endif
@@ -563,7 +619,7 @@ error:
 uint32_t Clock::getI2sClockFrequency(void)
 {
 	if(RCC->CFGR & RCC_CFGR_I2SSRC_Msk)
-#warning  "외부 클럭에 대한 설정이 가능하도록 업데이트 해야 함"
+//#warning  "외부 클럭에 대한 설정이 가능하도록 업데이트 해야 함"
 		return 0;
 	else
 		return getI2sPllRFrequency();
@@ -866,7 +922,8 @@ uint32_t Clock::getI2s2ClockFrequency(void)
 #if defined(GET_I2S2_FREQ_USE)
 	uint32_t getI2s2ClockFrequency(void)
 	{
-		
+		// 임시로 0 리턴
+		return 0;
 	}
 #endif
 

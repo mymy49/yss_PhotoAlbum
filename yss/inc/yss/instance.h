@@ -63,33 +63,25 @@
 extern Nvic nvic;
 #endif
 
-#if defined(STM32F446xx)
+#if defined(STM32F4_N)
 
-#include <targets/st/instance_stm32f446xx.h>
+#include <targets/st/instance_stm32f4.h>
 
-#elif defined(STM32F429xx)
+#elif defined(STM32F0_N)
 
-#include <targets/st/instance_stm32f429xx.h>
+#include <targets/st/instance_stm32f0.h>
 
-#elif defined(STM32F767xx)
+#elif defined(STM32F1_N) || defined(GD32F1)
 
-#include <targets/st/instance_stm32f767xx.h>
+#include <targets/st/instance_stm32f1.h>
 
-#elif defined(STM32F746xx)
+#elif defined(STM32F7_N)
 
-#include <targets/st/instance_stm32f746xx.h>
+#include <targets/st/instance_stm32f7.h>
 
 #elif defined(EFM32PG22)
 
 #include <targets/siliconlabs/instance_efm32pg22.h>
-
-#elif defined(STM32F1_N) || defined(GD32F1)
-
-#include <targets/st/instance_stm32f103xx.h>
-
-#elif defined(STM32F0_N)
-
-#include <targets/st/instance_stm32f030xx.h>
 
 #elif defined(EFR32BG22)
 

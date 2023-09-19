@@ -70,11 +70,11 @@ void RadioButton::paint(void)
 	pos.x -= height / 4 - 1;
 	pos.y -= height / 4 - 1;
 	if (mState)
-		mFrameBuffer->fillRect(pos, Size{half - 3, half - 3});
+		mFrameBuffer->fillRect(pos, Size{(uint16_t)(half - 3), (uint16_t)(half - 3)});
 
 	if (mText && font->isAble())
 	{
-		mFrameBuffer->drawString(Position{height + 2, half - font->getStringHeight((char *)mText) / 2}, (char *)mText);
+		mFrameBuffer->drawString(Position{(int16_t)(height + 2), (int16_t)(half - font->getStringHeight((char *)mText) / 2)}, (char *)mText);
 	}
 }
 

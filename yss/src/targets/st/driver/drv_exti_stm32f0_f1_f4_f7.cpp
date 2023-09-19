@@ -41,8 +41,6 @@ Exti::Exti(void (*clockFunc)(bool en), void (*nvicFunc)(bool en)) : Drv(clockFun
 
 error Exti::add(Gpio &gpio, uint8_t pin, uint8_t mode, void (*func)(void))
 {
-	volatile uint32_t* peri = (volatile uint32_t*)EXTI;
-
 	if (pin > 15)
 		return error::INDEX_OVER;
 
@@ -58,8 +56,6 @@ error Exti::add(Gpio &gpio, uint8_t pin, uint8_t mode, void (*func)(void))
 
 error Exti::add(Gpio &gpio, uint8_t pin, uint8_t mode, int32_t  trigger)
 {
-	volatile uint32_t* peri = (volatile uint32_t*)EXTI;
-
 	if (pin > 15)
 		return error::INDEX_OVER;
 

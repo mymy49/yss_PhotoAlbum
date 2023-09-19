@@ -40,7 +40,6 @@ WizFi360_Uart::~WizFi360_Uart(void)
 
 error WizFi360_Uart::send(void *src, uint32_t size)
 {
-	uint8_t *buf = (uint8_t*)src, c;
 	error rt;
 	
 	mPeri->lock();
@@ -52,7 +51,7 @@ error WizFi360_Uart::send(void *src, uint32_t size)
 
 int16_t WizFi360_Uart::getRxByte(void)
 {
-	mPeri->getRxByte();
+	return mPeri->getRxByte();
 }
 
 void WizFi360_Uart::flush(void)

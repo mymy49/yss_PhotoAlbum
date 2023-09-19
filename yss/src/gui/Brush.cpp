@@ -97,7 +97,7 @@ Color Brush::getBackgroundColor(void)
 void Brush::drawLine(Position start, Position end)
 {
 	uint16_t startX = start.x, startY = start.y, endX = end.x, endY = end.y;
-	uint16_t buf, lenX, lenY, x, y;
+	uint16_t lenX, lenY, x, y;
 	float slope;
 
 	if (startX > mSize.width || endX > mSize.width || startY > mSize.height || endY > mSize.height)
@@ -254,55 +254,6 @@ void Brush::setSize(Size size)
 	mSize = size;
 }
 
-uint8_t Brush::drawChar(Position pos, uint32_t utf8)
-{
-/*
-	if (mFont.setChar(utf8))
-		return 0;
-
-	YssFontInfo *fontInfo = mFont.getFontInfo();
-	uint8_t *fontFb = mFont.getFrameBuffer(), color;
-	int32_t  index = 0;
-	uint16_t width = fontInfo->width, height = fontInfo->height, offset = 0;
-	int16_t xs = pos.x, ys = pos.y + (int8_t)fontInfo->ypos;
-
-	if (xs + width > mSize.width)
-	{
-		width = mSize.width - xs;
-		offset = fontInfo->width - width;
-	}
-	if (ys + height > mSize.height)
-		height = mSize.height - ys;
-
-	width += xs;
-	height += ys;
-
-	for (int32_t  y = ys; y < height; y++)
-	{
-		for (int32_t  x = xs; x < width; x++, index++)
-		{
-			if (index % 2 == 0)
-			{
-				color = fontFb[index / 2] & 0x0f;
-				if (color == 0)
-					continue;
-				drawFontDot(x, y, color);
-			}
-			else
-			{
-				color = (fontFb[index / 2] >> 4) & 0x0f;
-				if (color == 0)
-					continue;
-				drawFontDot(x, y, color);
-			}
-		}
-		index += offset;
-	}
-
-	return fontInfo->width;
-*/
-}
-
 uint8_t Brush::drawString(Position pos, const char *str, uint8_t int8_tWidth)
 {
 	uint16_t sum = 0;
@@ -410,7 +361,6 @@ void Brush::drawCircle(Position pos, uint16_t radius)
 
 void Brush::fillCircle(Position pos, uint16_t radius)
 {
-	Position p;
 	float r = radius, x, y, y2;
 
 	if (radius < 3)
@@ -430,8 +380,8 @@ void Brush::fillCircle(Position pos, uint16_t radius)
 
 void Brush::fillTriangle(Position top, Position left, Position right)
 {
-	float slope1, slope2, slope3;
-	int16_t sx, sy, ex, ey, buf, cy;
+	float slope1, slope2;
+	int16_t sx, ex, ey, buf, cy;
 	bool nextDrawFlag = false;
 	Position p;
 	
@@ -662,6 +612,9 @@ void Brush::clear(void)
 
 void Brush::drawBmp(Position pos, const Bmp1555 *image)
 {
+	(void)pos;
+	(void)image;
+
 /*
 	uint16_t *fb = (uint16_t *)image->data, *src, buf;
 	uint16_t width = image->width;
